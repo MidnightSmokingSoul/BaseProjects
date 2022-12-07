@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		042606A329409910009FA987 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A229409910009FA987 /* Int+Extension.swift */; };
+		042606A5294099A3009FA987 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A4294099A3009FA987 /* UserInfoModel.swift */; };
 		04732FFA2939F9DC0057381E /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FF92939F9DC0057381E /* UIDevice+Extension.swift */; };
 		04733000293A04730057381E /* LandlordGrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FFF293A04730057381E /* LandlordGrayView.swift */; };
 		04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E2293E05960006E8F2 /* TagView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		042606A229409910009FA987 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		042606A4294099A3009FA987 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		04732FF92939F9DC0057381E /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		04732FFF293A04730057381E /* LandlordGrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlordGrayView.swift; sourceTree = "<group>"; };
 		04A2E8E2293E05960006E8F2 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		04732FFD293A045F0057381E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				042606A4294099A3009FA987 /* UserInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042606A5294099A3009FA987 /* UserInfoModel.swift in Sources */,
 				04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */,
 				04D0021C290BBA3700F0D5A3 /* UIImageEffects.swift in Sources */,
 				04A2E8E9293F4B9B0006E8F2 /* EmptyStateView.swift in Sources */,
