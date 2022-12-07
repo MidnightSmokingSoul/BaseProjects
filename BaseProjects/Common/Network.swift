@@ -14,6 +14,10 @@ public enum PromiseError: Error {
     case Error(message: String)
 }
 
+enum UploadType {
+    case video, image, sound
+}
+
 public class Reachability {
     class func isConnectedToNetwork() -> Bool {
         return NetworkReachabilityManager()!.isReachable
@@ -22,10 +26,6 @@ public class Reachability {
 
 public enum Router: String {
     case getUserinfo = "/v1/auth/user/userinfo"
-}
-
-enum UploadType {
-    case video, image, sound
 }
 
 class Network {

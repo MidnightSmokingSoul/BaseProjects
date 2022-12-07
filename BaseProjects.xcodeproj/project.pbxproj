@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042606A329409910009FA987 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A229409910009FA987 /* Int+Extension.swift */; };
+		04732FFA2939F9DC0057381E /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FF92939F9DC0057381E /* UIDevice+Extension.swift */; };
+		04733000293A04730057381E /* LandlordGrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FFF293A04730057381E /* LandlordGrayView.swift */; };
+		04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E2293E05960006E8F2 /* TagView.swift */; };
+		04A2E8E9293F4B9B0006E8F2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */; };
 		04D001F3290BB9EC00F0D5A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */; };
 		04D001F5290BB9EC00F0D5A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */; };
 		04D001F7290BB9EC00F0D5A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F6290BB9EC00F0D5A3 /* ViewController.swift */; };
@@ -30,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042606A229409910009FA987 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		04732FF92939F9DC0057381E /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		04732FFF293A04730057381E /* LandlordGrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlordGrayView.swift; sourceTree = "<group>"; };
+		04A2E8E2293E05960006E8F2 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		04D001EF290BB9EC00F0D5A3 /* BaseProjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseProjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +78,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04732FFB293A045F0057381E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				04732FFC293A045F0057381E /* Controller */,
+				04732FFE293A045F0057381E /* View */,
+				04732FFD293A045F0057381E /* Model */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		04732FFC293A045F0057381E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04732FFD293A045F0057381E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04732FFE293A045F0057381E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04732FFF293A04730057381E /* LandlordGrayView.swift */,
+				04A2E8E2293E05960006E8F2 /* TagView.swift */,
+				04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		04D001E6290BB9EC00F0D5A3 = {
 			isa = PBXGroup;
 			children = (
@@ -89,11 +133,12 @@
 		04D001F1290BB9EC00F0D5A3 /* BaseProjects */ = {
 			isa = PBXGroup;
 			children = (
-				04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */,
-				04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */,
+				04732FFB293A045F0057381E /* Base */,
 				04D001F6290BB9EC00F0D5A3 /* ViewController.swift */,
 				04D0020F290BBA3700F0D5A3 /* Common */,
 				04D00206290BBA3700F0D5A3 /* Extension */,
+				04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */,
+				04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */,
 				04D001F8290BB9EC00F0D5A3 /* Main.storyboard */,
 				04D001FB290BB9EE00F0D5A3 /* Assets.xcassets */,
 				04D001FD290BB9EE00F0D5A3 /* LaunchScreen.storyboard */,
@@ -111,8 +156,10 @@
 				04D0020A290BBA3700F0D5A3 /* UIImage+Extension.swift */,
 				04D0020B290BBA3700F0D5A3 /* UIViewController+Extension.swift */,
 				04D0020C290BBA3700F0D5A3 /* String+Extension.swift */,
+				042606A229409910009FA987 /* Int+Extension.swift */,
 				04D0020D290BBA3700F0D5A3 /* UITabbar+Extension.swift */,
 				04D0020E290BBA3700F0D5A3 /* UIImageEffects.swift */,
+				04732FF92939F9DC0057381E /* UIDevice+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -135,7 +182,6 @@
 				5F45EABE30382CB9FC96AB77 /* Pods-BaseProjects.debug.xcconfig */,
 				1696527AA82D62ECB406D96F /* Pods-BaseProjects.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,7 +308,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */,
 				04D0021C290BBA3700F0D5A3 /* UIImageEffects.swift in Sources */,
+				04A2E8E9293F4B9B0006E8F2 /* EmptyStateView.swift in Sources */,
+				042606A329409910009FA987 /* Int+Extension.swift in Sources */,
 				04D00219290BBA3700F0D5A3 /* UIViewController+Extension.swift in Sources */,
 				04D00220290BBA3700F0D5A3 /* Config.swift in Sources */,
 				04D0021A290BBA3700F0D5A3 /* String+Extension.swift in Sources */,
@@ -270,8 +319,10 @@
 				04D00217290BBA3700F0D5A3 /* UIView+Extension.swift in Sources */,
 				04D00221290BBA3700F0D5A3 /* BaseModel.swift in Sources */,
 				04D00218290BBA3700F0D5A3 /* UIImage+Extension.swift in Sources */,
+				04732FFA2939F9DC0057381E /* UIDevice+Extension.swift in Sources */,
 				04D00216290BBA3700F0D5A3 /* Date+Extension.swift in Sources */,
 				04D001F7290BB9EC00F0D5A3 /* ViewController.swift in Sources */,
+				04733000293A04730057381E /* LandlordGrayView.swift in Sources */,
 				04D001F3290BB9EC00F0D5A3 /* AppDelegate.swift in Sources */,
 				04D001F5290BB9EC00F0D5A3 /* SceneDelegate.swift in Sources */,
 				04D0021E290BBA3700F0D5A3 /* UserDefaultsDataBase.swift in Sources */,

@@ -28,9 +28,19 @@ extension String {
         return CGFloat(ceilf(Float(stringSize.height)))+topOffset+bottomOffset
     }
     
-    ///去除特殊符号和空格
-    func trim() -> String {
-        return trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+    ///去掉首尾空格
+    var removeHeadAndTailSpace:String {
+        let whitespace = NSCharacterSet.whitespaces
+        return self.trimmingCharacters(in: whitespace)
+    }
+    ///去掉首尾空格 包括后面的换行 \n
+    var removeHeadAndTailSpacePro:String {
+        let whitespace = NSCharacterSet.whitespacesAndNewlines
+        return self.trimmingCharacters(in: whitespace)
+    }
+    ///去掉所有空格
+    var removeAllSapce: String {
+        return self.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
     }
     
     ///获取字符串里第一个出现的字符下标
@@ -95,4 +105,48 @@ extension String {
         }
         return rangeArray
     }
+    
+    func index(_ offset: Int) -> Index {
+        return self.index(startIndex, offsetBy: offset)
+    }
+    func substring(from: Int) -> String {
+        let fromIndex = index(from)
+        return String(self[fromIndex...])
+    }
+    func substring(to: Int) -> String {
+        let toIndex = index(to)
+        return String(self[..<toIndex])
+    }
+    //获取两个下标中间的字符串
+    func substring(start: Int, end: Int) -> String {
+        let startIndex = index(start)
+        let endIndex = index(end)
+        return String(self[startIndex..<endIndex])
+    }
+    
+    //从String中截取出参数
+    var urlParameters: [String: AnyObject]? {
+        // 截取是否有参数
+        guard let urlComponents = URLComponents(string: self), let queryItems = urlComponents.queryItems else {
+            return nil
+        }
+        // 参数字典
+        var parameters = [String: AnyObject]()
+        // 遍历参数
+        queryItems.forEach({ (item) in
+            // 判断参数是否是数组
+            if let existValue = parameters[item.name], let value = item.value {
+                // 已存在的值，生成数组
+                if var existValue = existValue as? [AnyObject] {
+                    existValue.append(value as AnyObject)
+                } else {
+                    parameters[item.name] = [existValue, value] as AnyObject
+                }
+            } else {
+                parameters[item.name] = item.value as AnyObject
+            }
+        })
+        return parameters
+    }
+    
 }
