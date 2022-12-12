@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		042606A329409910009FA987 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A229409910009FA987 /* Int+Extension.swift */; };
 		042606A5294099A3009FA987 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A4294099A3009FA987 /* UserInfoModel.swift */; };
+		042606A92941CD8A009FA987 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606A82941CD8A009FA987 /* BaseTabBarController.swift */; };
+		042606AB2941CFBB009FA987 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606AA2941CFBB009FA987 /* BaseNavigationController.swift */; };
+		042606AD2941DA5D009FA987 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606AC2941DA5C009FA987 /* DemoViewController.swift */; };
+		042606AF2941EC0F009FA987 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042606AE2941EC0F009FA987 /* BaseViewController.swift */; };
 		04732FFA2939F9DC0057381E /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FF92939F9DC0057381E /* UIDevice+Extension.swift */; };
 		04733000293A04730057381E /* LandlordGrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FFF293A04730057381E /* LandlordGrayView.swift */; };
-		04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E2293E05960006E8F2 /* TagView.swift */; };
-		04A2E8E9293F4B9B0006E8F2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */; };
+		04A2E8E3293E05960006E8F2 /* XHTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E2293E05960006E8F2 /* XHTagView.swift */; };
+		04A2E8E9293F4B9B0006E8F2 /* XHEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E8293F4B9B0006E8F2 /* XHEmptyStateView.swift */; };
 		04D001F3290BB9EC00F0D5A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */; };
 		04D001F5290BB9EC00F0D5A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */; };
 		04D001F7290BB9EC00F0D5A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F6290BB9EC00F0D5A3 /* ViewController.swift */; };
@@ -38,10 +42,14 @@
 /* Begin PBXFileReference section */
 		042606A229409910009FA987 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		042606A4294099A3009FA987 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		042606A82941CD8A009FA987 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		042606AA2941CFBB009FA987 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		042606AC2941DA5C009FA987 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		042606AE2941EC0F009FA987 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		04732FF92939F9DC0057381E /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		04732FFF293A04730057381E /* LandlordGrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlordGrayView.swift; sourceTree = "<group>"; };
-		04A2E8E2293E05960006E8F2 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		04A2E8E2293E05960006E8F2 /* XHTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHTagView.swift; sourceTree = "<group>"; };
+		04A2E8E8293F4B9B0006E8F2 /* XHEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHEmptyStateView.swift; sourceTree = "<group>"; };
 		04D001EF290BB9EC00F0D5A3 /* BaseProjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseProjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +101,9 @@
 		04732FFC293A045F0057381E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				042606A82941CD8A009FA987 /* BaseTabBarController.swift */,
+				042606AA2941CFBB009FA987 /* BaseNavigationController.swift */,
+				042606AE2941EC0F009FA987 /* BaseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -109,8 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				04732FFF293A04730057381E /* LandlordGrayView.swift */,
-				04A2E8E2293E05960006E8F2 /* TagView.swift */,
-				04A2E8E8293F4B9B0006E8F2 /* EmptyStateView.swift */,
+				04A2E8E2293E05960006E8F2 /* XHTagView.swift */,
+				04A2E8E8293F4B9B0006E8F2 /* XHEmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -138,6 +149,7 @@
 			children = (
 				04732FFB293A045F0057381E /* Base */,
 				04D001F6290BB9EC00F0D5A3 /* ViewController.swift */,
+				042606AC2941DA5C009FA987 /* DemoViewController.swift */,
 				04D0020F290BBA3700F0D5A3 /* Common */,
 				04D00206290BBA3700F0D5A3 /* Extension */,
 				04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */,
@@ -312,22 +324,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				042606A5294099A3009FA987 /* UserInfoModel.swift in Sources */,
-				04A2E8E3293E05960006E8F2 /* TagView.swift in Sources */,
+				04A2E8E3293E05960006E8F2 /* XHTagView.swift in Sources */,
 				04D0021C290BBA3700F0D5A3 /* UIImageEffects.swift in Sources */,
-				04A2E8E9293F4B9B0006E8F2 /* EmptyStateView.swift in Sources */,
+				04A2E8E9293F4B9B0006E8F2 /* XHEmptyStateView.swift in Sources */,
 				042606A329409910009FA987 /* Int+Extension.swift in Sources */,
 				04D00219290BBA3700F0D5A3 /* UIViewController+Extension.swift in Sources */,
 				04D00220290BBA3700F0D5A3 /* Config.swift in Sources */,
 				04D0021A290BBA3700F0D5A3 /* String+Extension.swift in Sources */,
+				042606AB2941CFBB009FA987 /* BaseNavigationController.swift in Sources */,
+				042606AD2941DA5D009FA987 /* DemoViewController.swift in Sources */,
 				04D0021D290BBA3700F0D5A3 /* Refresh.swift in Sources */,
 				04D00217290BBA3700F0D5A3 /* UIView+Extension.swift in Sources */,
 				04D00221290BBA3700F0D5A3 /* BaseModel.swift in Sources */,
+				042606AF2941EC0F009FA987 /* BaseViewController.swift in Sources */,
 				04D00218290BBA3700F0D5A3 /* UIImage+Extension.swift in Sources */,
 				04732FFA2939F9DC0057381E /* UIDevice+Extension.swift in Sources */,
 				04D00216290BBA3700F0D5A3 /* Date+Extension.swift in Sources */,
 				04D001F7290BB9EC00F0D5A3 /* ViewController.swift in Sources */,
 				04733000293A04730057381E /* LandlordGrayView.swift in Sources */,
 				04D001F3290BB9EC00F0D5A3 /* AppDelegate.swift in Sources */,
+				042606A92941CD8A009FA987 /* BaseTabBarController.swift in Sources */,
 				04D001F5290BB9EC00F0D5A3 /* SceneDelegate.swift in Sources */,
 				04D0021E290BBA3700F0D5A3 /* UserDefaultsDataBase.swift in Sources */,
 				04D00215290BBA3700F0D5A3 /* UIColor+Extension.swift in Sources */,

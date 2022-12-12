@@ -1,5 +1,5 @@
 //
-//  EmptyStateView.swift
+//  XHEmptyStateView.swift
 //  无数据提示
 //
 //  Created by 张轩赫 on 2022/12/6.
@@ -9,20 +9,20 @@ import UIKit
 
 extension UIView {
     func showEmptyState(imgName: String = "暂无回复", text: String = "暂无回复", topMargin: CGFloat = 50) {
-        EmptyStateView.shrad.addEmptyStateView(imgName: imgName, text: text)
-        self.addSubview(EmptyStateView.shrad)
-        EmptyStateView.shrad.snp.makeConstraints { make in
+        XHEmptyStateView.shrad.addEmptyStateView(imgName: imgName, text: text)
+        self.addSubview(XHEmptyStateView.shrad)
+        XHEmptyStateView.shrad.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().inset(topMargin)
         }
     }
     func hiddenEmptyState() {
-        EmptyStateView.shrad.hiddenEmptyStateView()
+        XHEmptyStateView.shrad.hiddenEmptyStateView()
     }
     
 }
 
-class EmptyStateView: UIView {
+class XHEmptyStateView: UIView {
 
     lazy var bgView: UIView = {
         let bgView = UIView()
@@ -41,7 +41,7 @@ class EmptyStateView: UIView {
         return label
     }()
     
-    static let shrad = EmptyStateView()
+    static let shrad = XHEmptyStateView()
     
     private override init(frame: CGRect) {
         super.init(frame: frame)

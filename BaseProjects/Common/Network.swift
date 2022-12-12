@@ -41,6 +41,7 @@ class Network {
         let headers: HTTPHeaders = ["Authorization": " Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXIiOiIiLCJiYWxhbmNlIjo5OTQzNzAwLCJlbWFpbCI6IiIsImV4cCI6MTY2OTI3MDQ0MiwiaWQiOiJlZDUxZGY4MS1lMGFjLTQ0YzUtYjgyOS00NmJjMDQyZDJmZmUiLCJpbnZpdGVjb2RlIjoiQjZEWjU3OCIsImlzX3ZpcCI6MSwibmlja19uYW1lIjoi5a2Q5aScIiwib3JpZ19pYXQiOjE2NjY2Nzg0NDIsInBob25lIjoiMTU4MDAwMDAwMDIiLCJ1c2VybmFtZSI6IjNDM0MwQjJFLUQyMzktNEZGNy04NEE3LUM5RUNFOEY5QkQzMiIsInZpcF9leHBpcmVfYXQiOiIyMDIyLTEwLTI0VDE2OjQxOjI0KzA4OjAwIn0.A5Z8nYFH-IsaETEQuvk7_7jP_5BrN_UdX5SAZHTyeHU"]
         let request = Config.sharedManager.requestManager.request(rootApi + router.rawValue, method: method, parameters: parameters, headers: headers)
         guard Reachability.isConnectedToNetwork() else {
+            keyWindow?.hideAllToasts()
             keyWindow?.makeToast("请检测网络连接", position: .center)
             failure(PromiseError.Error(message: "请检测网络连接"))
             return
@@ -49,6 +50,7 @@ class Network {
         request.responseData { response in
             do {
                 guard let data = response.data else {
+                    keyWindow?.hideAllToasts()
                     keyWindow?.makeToast("请求失败", position: .center)
                     failure(PromiseError.Error(message: "请求失败"))
                     return
@@ -56,10 +58,12 @@ class Network {
                 if let code = response.response?.statusCode, code == 200 {
                     success(try JSON(data: data))
                 } else {
+                    keyWindow?.hideAllToasts()
                     keyWindow?.makeToast(try JSON(data: data)["message"].stringValue, position: .center)
                     failure(PromiseError.Error(message: try JSON(data: data)["message"].stringValue))
                 }
             } catch {
+                keyWindow?.hideAllToasts()
                 keyWindow?.makeToast("请求失败", position: .center)
                 failure(PromiseError.Error(message: "请求失败"))
             }

@@ -1,6 +1,6 @@
 //
 //  LandlordGrayView.swift
-//  张轩赫
+//  灰色模式的View
 //
 //  Created by 张轩赫 on 2022/12/1.
 //

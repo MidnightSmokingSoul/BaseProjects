@@ -1,5 +1,5 @@
 //
-//  TagView.swift
+//  XHTagView.swift
 //  不规则标签
 //
 //  Created by 张轩赫 on 2022/12/5.
@@ -13,21 +13,31 @@ enum Direction {
     case vertical
 }
 
-class TagView: UIView {
+class XHTagView: UIView {
     
     ///标签数组
-    var tags: [String] = []
+    var tags: [String] = [] {
+        didSet {
+            relaodData()
+        }
+    }
+    ///展示方向
+    var direction: Direction = .vertical
     ///字体颜色
     var titleColor: UIColor = .black
-    ///字体大小
+    ///文字字体
     var titleFont: UIFont = UIFont.systemFont(ofSize: 12)
     ///标签离背景左右间距
-    var padding: CGFloat = 15
+    var padding: CGFloat = 15 {
+        didSet {
+            titleBtnX = padding
+        }
+    }
     ///标签之间间距
     var margin: CGFloat = 15
     ///标签背景颜色
     var bgColor: UIColor = .white
-    ///字体离标签间距
+    ///文字离标签间距
     var tagInsets: UIEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
     ///标签圆角
     var radius: CGFloat = 0
@@ -35,18 +45,19 @@ class TagView: UIView {
     /*
      * 只有上下排列才需要
      */
-    ///标签的开始x
-    var titleBtnX: CGFloat = 15
+    
     ///标签的高度
-    var titleBtnH: CGFloat = 30
+    var titleBtnH: CGFloat = 25
+    ///view的宽度 (如果使用SnapKit布局必须给定TagView的宽度)
+    var tagViewW: CGFloat = 0
+    
+    //第一个标签的开始x
+    private var titleBtnX: CGFloat = 15
     //标签的y
     private var titleBtnY: CGFloat = 0
     ///获取上下排列时 view的高度
     private (set) var viewH: CGFloat = 0
     
-    
-    //方向
-    private var direction: Direction = .horizontal
     //view上的ScrollView
     private var bgScrollView: UIScrollView?
     //标签views
@@ -64,20 +75,13 @@ class TagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    ///左右滑动
-    func setHorizontalScroll(selectTag: @escaping selectTagBlack) {
-        direction = .horizontal
-        setupTopic(tags: tags)
+    ///左右展示(可滑动) 上下展示(不可滑动)
+    func didSelectTagCallback(selectTag: @escaping selectTagBlack) {
         self.selectTag = selectTag
     }
-    ///上下展示(不带滑动)
-    func setVerticalScroll(selectTag: @escaping selectTagBlack) {
-        direction = .vertical
-        setupTopic(tags: tags)
-        self.selectTag = selectTag
-    }
-    ///刷新数据
-    func relaodData() {
+    
+    //刷新数据
+    private func relaodData() {
         setupTopic(tags: tags)
     }
     
@@ -115,13 +119,13 @@ class TagView: UIView {
                 titleBtn.sizeToFit()
                 
                 bgView.tag = i
-                bgView.frame.size.height = frame.height
+                bgView.frame.size.height = titleBtnH
                 bgView.frame.origin.y = 0
                 bgView.layer.cornerRadius = radius
                 bgView.layer.masksToBounds = true
                 bgView.frame.size.width = titleBtn.frame.width + tagInsets.left + tagInsets.right
                 
-                if direction == .horizontal {
+                if direction == .vertical {
                     if i == 0 {
                         bgView.frame.origin.x = padding
                     } else {
@@ -130,7 +134,7 @@ class TagView: UIView {
                 } else {
                     let titleBtnW = bgView.frame.width
                     //判断按钮是否超过屏幕的宽
-                    if titleBtnX + titleBtnW > frame.width - (padding * 2) {
+                    if titleBtnX + titleBtnW > (tagViewW == 0 ? frame.width : tagViewW) - (padding * 2) {
                         titleBtnX = padding
                         titleBtnY += titleBtnH + margin
                     }
@@ -149,10 +153,10 @@ class TagView: UIView {
                 tagViews.append(bgView)
                 bgScrollView?.addSubview(bgView)
             }
-            bgScrollView?.contentSize = CGSize(width: (tagViews.last?.frame.maxX ?? 0) + padding, height: 0)
-            frame.size.height = tagViews.last?.frame.maxY ?? 0
-            viewH = tagViews.last?.frame.maxY ?? 0
         }
+        bgScrollView?.contentSize = CGSize(width: (tagViews.last?.frame.maxX ?? 0) + padding, height: 0)
+        frame.size.height = tagViews.last?.frame.maxY ?? 0
+        viewH = tagViews.last?.frame.maxY ?? 0
     }
     
     ///标签点击
