@@ -17,6 +17,7 @@
 		04733000293A04730057381E /* LandlordGrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04732FFF293A04730057381E /* LandlordGrayView.swift */; };
 		04A2E8E3293E05960006E8F2 /* XHTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E2293E05960006E8F2 /* XHTagView.swift */; };
 		04A2E8E9293F4B9B0006E8F2 /* XHEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2E8E8293F4B9B0006E8F2 /* XHEmptyStateView.swift */; };
+		04B536C9294B212000E94E9A /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B536C8294B212000E94E9A /* UIWindow+Extension.swift */; };
 		04D001F3290BB9EC00F0D5A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */; };
 		04D001F5290BB9EC00F0D5A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */; };
 		04D001F7290BB9EC00F0D5A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D001F6290BB9EC00F0D5A3 /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 		04732FFF293A04730057381E /* LandlordGrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlordGrayView.swift; sourceTree = "<group>"; };
 		04A2E8E2293E05960006E8F2 /* XHTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHTagView.swift; sourceTree = "<group>"; };
 		04A2E8E8293F4B9B0006E8F2 /* XHEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHEmptyStateView.swift; sourceTree = "<group>"; };
+		04B536C8294B212000E94E9A /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		04D001EF290BB9EC00F0D5A3 /* BaseProjects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseProjects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				04D0020D290BBA3700F0D5A3 /* UITabbar+Extension.swift */,
 				04D0020E290BBA3700F0D5A3 /* UIImageEffects.swift */,
 				04732FF92939F9DC0057381E /* UIDevice+Extension.swift */,
+				04B536C8294B212000E94E9A /* UIWindow+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				042606AB2941CFBB009FA987 /* BaseNavigationController.swift in Sources */,
 				042606AD2941DA5D009FA987 /* DemoViewController.swift in Sources */,
 				04D0021D290BBA3700F0D5A3 /* Refresh.swift in Sources */,
+				04B536C9294B212000E94E9A /* UIWindow+Extension.swift in Sources */,
 				04D00217290BBA3700F0D5A3 /* UIView+Extension.swift in Sources */,
 				04D00221290BBA3700F0D5A3 /* BaseModel.swift in Sources */,
 				042606AF2941EC0F009FA987 /* BaseViewController.swift in Sources */,
