@@ -111,3 +111,37 @@ class Network {
     }
     
 }
+
+/*
+ 直接传参给body
+ */
+struct BodyStringEncoding: ParameterEncoding {
+
+    //body类型可以更改
+    private let body: Data
+
+    init(body: Data) { self.body = body }
+
+    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        guard var urlRequest = urlRequest.urlRequest else { throw Errors.emptyURLRequest }
+//        guard let data = body.data(using: .utf8) else { throw Errors.encodingProblem }
+        urlRequest.httpBody = body
+        return urlRequest
+    }
+}
+
+extension BodyStringEncoding {
+    enum Errors: Error {
+        case emptyURLRequest
+        case encodingProblem
+    }
+}
+//encoding里调用这个
+extension BodyStringEncoding.Errors: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+            case .emptyURLRequest: return "Empty url request"
+            case .encodingProblem: return "Encoding problem"
+        }
+    }
+}
