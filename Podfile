@@ -18,5 +18,6 @@ target 'BaseProjects' do
   pod 'ZLPhotoBrowser'    #获取相册图片
   pod 'BRPickerView'    #日期和自定义选择器
   pod 'GrowingTextView'   #聊天输入框
-  
+  pod 'JXSegmentedView'   #分类滑动
+
 end
