@@ -25,6 +25,8 @@ class XHTagView: UIView {
     var direction: Direction = .vertical
     ///字体颜色
     var titleColor: UIColor = .black
+    ///选中之后的颜色
+    var selectColor: UIColor = .red
     ///文字字体
     var titleFont: UIFont = UIFont.systemFont(ofSize: 12)
     ///标签离背景左右间距
@@ -41,6 +43,8 @@ class XHTagView: UIView {
     var tagInsets: UIEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
     ///标签圆角
     var radius: CGFloat = 0
+    ///默认选中第几个标签
+    var selectIndex: Int = -1
     
     /*
      * 只有上下排列才需要
@@ -62,9 +66,25 @@ class XHTagView: UIView {
     private var bgScrollView: UIScrollView?
     //标签views
     private var tagViews: [UIView] = []
+    //上一个选中的标签
+    private var lastSelectTagBtn: UIButton?
+    //上一个选中的标签
+    private var lastSelectBgView: UIView?
+    
+    //标签的button
+    private var titleBtns: [UIButton] = []
     
     typealias selectTagBlack = (_ index: Int) -> ()
     private var selectTag: selectTagBlack?
+    
+    lazy var shapeLayer: CAShapeLayer = {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = selectColor.cgColor
+        shapeLayer.fillColor = nil
+        shapeLayer.lineWidth = 2
+        shapeLayer.lineDashPattern = [4, 2] // 4 is the length of dash, 2 is the length of the gap
+        return shapeLayer
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,7 +92,7 @@ class XHTagView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     ///左右展示(可滑动) 上下展示(不可滑动)
@@ -120,11 +140,11 @@ class XHTagView: UIView {
                 
                 bgView.tag = i
                 bgView.frame.size.height = titleBtnH
-                bgView.frame.origin.y = 0
+                bgView.frame.origin.y = (frame.size.height - titleBtnH) * 0.5
                 bgView.layer.cornerRadius = radius
                 bgView.layer.masksToBounds = true
                 bgView.frame.size.width = titleBtn.frame.width + tagInsets.left + tagInsets.right
-                
+                                
                 if direction == .vertical {
                     if i == 0 {
                         bgView.frame.origin.x = padding
@@ -143,6 +163,7 @@ class XHTagView: UIView {
                     titleBtnX += titleBtnW + margin
                 }
                 
+                titleBtns.append(titleBtn)
                 bgView.addSubview(titleBtn)
                 titleBtn.snp.makeConstraints { make in
                     make.top.equalTo(bgView).inset(tagInsets.top)
@@ -157,10 +178,41 @@ class XHTagView: UIView {
         bgScrollView?.contentSize = CGSize(width: (tagViews.last?.frame.maxX ?? 0) + padding, height: 0)
         frame.size.height = tagViews.last?.frame.maxY ?? 0
         viewH = tagViews.last?.frame.maxY ?? 0
+        
+        //如果有默认选中的
+        if selectIndex >= 0 {
+            lastSelectTagBtn = titleBtns[selectIndex]
+            lastSelectTagBtn?.setTitleColor(selectColor, for: .normal)
+            lastSelectBgView = tagViews[selectIndex]
+            let path = UIBezierPath(rect: lastSelectBgView!.bounds)
+            shapeLayer.path = path.cgPath
+            lastSelectBgView?.layer.addSublayer(shapeLayer)
+        }
+        
     }
     
     ///标签点击
     @objc private func titleBtnClike(btn: UIButton) {
+        if lastSelectTagBtn != nil {
+            lastSelectTagBtn?.setTitleColor(titleColor, for: .normal)
+        }
+        if lastSelectBgView != nil {
+            guard let sublayers = lastSelectBgView?.layer.sublayers else { return }
+            for layer in sublayers {
+                // 检查是否是我们自定义添加的 layer，然后移除
+                if let shapeLayer = layer as? CAShapeLayer {
+                    shapeLayer.removeFromSuperlayer()
+                }
+            }
+        }
+        lastSelectTagBtn = btn
+        lastSelectBgView = tagViews[btn.tag]
+        
+        btn.setTitleColor(selectColor, for: .normal)
+        let path = UIBezierPath(rect: tagViews[btn.tag].bounds)
+        shapeLayer.path = path.cgPath
+        tagViews[btn.tag].layer.addSublayer(shapeLayer)
+        
         selectTag?(btn.tag)
     }
 

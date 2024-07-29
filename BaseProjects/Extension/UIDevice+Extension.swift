@@ -16,11 +16,10 @@ extension UIDevice {
             guard let windowScene = scene as? UIWindowScene else { return 0 }
             guard let window = windowScene.windows.first else { return 0 }
             return window.safeAreaInsets.top
-        } else if #available(iOS 11.0, *) {
+        } else {
             guard let window = UIApplication.shared.windows.first else { return 0 }
             return window.safeAreaInsets.top
         }
-        return 0
     }
     
     /// 底部安全区高度
@@ -30,11 +29,10 @@ extension UIDevice {
             guard let windowScene = scene as? UIWindowScene else { return 0 }
             guard let window = windowScene.windows.first else { return 0 }
             return window.safeAreaInsets.bottom
-        } else if #available(iOS 11.0, *) {
+        } else {
             guard let window = UIApplication.shared.windows.first else { return 0 }
             return window.safeAreaInsets.bottom
         }
-        return 0
     }
     
     /// 顶部状态栏高度（包括安全区）

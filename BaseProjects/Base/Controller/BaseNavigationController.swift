@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseNavigationController: UINavigationController {
+class BaseNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,8 @@ class BaseNavigationController: UINavigationController {
         navigationBar.scrollEdgeAppearance = navBarAppearance
         
         navigationBar.tintColor = .black
+        
+        interactivePopGestureRecognizer?.delegate = self
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -31,6 +33,7 @@ class BaseNavigationController: UINavigationController {
 //            let leftTitle = UIBarButtonItem(title: "公司", style: .plain, target: self, action: #selector(popViewController(animated:)))
 //            viewController.navigationItem.setLeftBarButtonItems([leftImage], animated: true)
         }
+//        interactivePopGestureRecognizer?.isEnabled = !viewController.isKind(of: LoginViewController.self)
         super.pushViewController(viewController, animated: animated)
     }
     

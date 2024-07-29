@@ -13,14 +13,24 @@ class BaseTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
-        tabBar.tintColor = UIColor("#1CB496")
-//        tabBar.backgroundColor = .cyan
+        // In your case
+        UITabBar.appearance().unselectedItemTintColor = .black
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .white
+        tabBarAppearance.shadowColor = .white
+        tabBarAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        if #available(iOS 15, *) {
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
         
         selectedIndex = 0
         lastItem = tabBar.selectedItem
-        
-        UITabBar.appearance().unselectedItemTintColor = UIColor.black
+        UITabBar.appearance().tintColor = UIColor("#C63520")
+        UITabBar.appearance().unselectedItemTintColor = UIColor("#999999")
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)
         
     }

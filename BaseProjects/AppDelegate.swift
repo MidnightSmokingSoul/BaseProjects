@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setupKeyboard() {
         let manager = IQKeyboardManager.shared
         manager.enable = true
-        manager.shouldResignOnTouchOutside = true
+        manager.resignOnTouchOutside = true
         manager.enableAutoToolbar = false
         manager.keyboardDistanceFromTextField = 160
     }

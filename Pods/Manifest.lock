@@ -1,33 +1,51 @@
 PODS:
-  - Alamofire (5.6.2)
-  - BRPickerView (2.8.0):
-    - BRPickerView/AddressPickerView (= 2.8.0)
-    - BRPickerView/Base (= 2.8.0)
-    - BRPickerView/DatePickerView (= 2.8.0)
-    - BRPickerView/StringPickerView (= 2.8.0)
-  - BRPickerView/AddressPickerView (2.8.0):
-    - BRPickerView/Base
-  - BRPickerView/Base (2.8.0)
-  - BRPickerView/DatePickerView (2.8.0):
-    - BRPickerView/Base
-  - BRPickerView/StringPickerView (2.8.0):
-    - BRPickerView/Base
+  - Alamofire (5.9.1)
+  - BRPickerView (2.9.1):
+    - BRPickerView/All (= 2.9.1)
+  - BRPickerView/All (2.9.1):
+    - BRPickerView/Default
+    - BRPickerView/Deprecated
+  - BRPickerView/Core (2.9.1)
+  - BRPickerView/DatePicker (2.9.1):
+    - BRPickerView/Core
+  - BRPickerView/Default (2.9.1):
+    - BRPickerView/DatePicker
+    - BRPickerView/TextPicker
+  - BRPickerView/Deprecated (2.9.1):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.1)
+    - BRPickerView/Deprecated/Base (= 2.9.1)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.1)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.1):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/Deprecated/Base (2.9.1):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.1):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.1):
+    - BRPickerView/Core
+  - GrowingTextView (0.7.2)
   - HandyJSON (5.0.2)
-  - IQKeyboardManagerSwift (6.5.10)
-  - Kingfisher (7.3.2)
-  - MJRefresh (3.7.5)
-  - SnapKit (5.6.0)
-  - SwiftyJSON (5.0.1)
-  - Toast-Swift (5.0.1)
-  - ZLPhotoBrowser (4.3.6):
-    - ZLPhotoBrowser/Core (= 4.3.6)
-  - ZLPhotoBrowser/Core (4.3.6)
+  - IQKeyboardManagerSwift (7.1.1)
+  - JXSegmentedView (1.4.1)
+  - Kingfisher (7.12.0)
+  - MJRefresh (3.7.9)
+  - SnapKit (5.7.1)
+  - SwiftyJSON (5.0.2)
+  - Toast-Swift (5.1.1)
+  - ZLPhotoBrowser (4.5.4):
+    - ZLPhotoBrowser/Core (= 4.5.4)
+  - ZLPhotoBrowser/Core (4.5.4)
 
 DEPENDENCIES:
   - Alamofire
   - BRPickerView
+  - GrowingTextView
   - HandyJSON
   - IQKeyboardManagerSwift
+  - JXSegmentedView
   - Kingfisher
   - MJRefresh
   - SnapKit
@@ -39,8 +57,10 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - BRPickerView
+    - GrowingTextView
     - HandyJSON
     - IQKeyboardManagerSwift
+    - JXSegmentedView
     - Kingfisher
     - MJRefresh
     - SnapKit
@@ -49,17 +69,19 @@ SPEC REPOS:
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
-  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
-  BRPickerView: a0ff460bf092bc069db5a54153395b1f7e8f5300
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  BRPickerView: 6dd69ea2c48e0a0abf1d197a705050e13143ee63
+  GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
-  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
-  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
-  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
-  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  ZLPhotoBrowser: 332a6d3c43262bbfd1596a53f5bb9d060360d6b8
+  IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
+  JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
+  Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
+  MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
+  ZLPhotoBrowser: 68ab8554845ce05a41d49f293a0e30beb519101f
 
-PODFILE CHECKSUM: 480f2299918e04d3aa4425b9548585f8568eb944
+PODFILE CHECKSUM: a04a1ea9c7209aa83a4fdf9446560813e5472164
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.14.2
