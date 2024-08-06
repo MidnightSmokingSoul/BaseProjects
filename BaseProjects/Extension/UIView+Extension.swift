@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIView {
+    /**
+     *  切圆角
+     *  - parameter conrners: 切的位置  radius: 角度多大
+     */
     func addCorner(conrners: UIRectCorner , radius: CGFloat) {
         let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: conrners, cornerRadii: CGSize(width: radius, height: radius))
         let maskLayer = CAShapeLayer()
