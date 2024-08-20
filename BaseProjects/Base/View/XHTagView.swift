@@ -24,7 +24,7 @@ class XHTagView: UIView {
     ///展示方向
     var direction: Direction = .vertical
     ///字体颜色
-    var titleColor: UIColor = .black
+    var titleColor: UIColor = .red
     ///选中之后的颜色
     var selectColor: UIColor = .red
     ///文字字体
@@ -39,13 +39,24 @@ class XHTagView: UIView {
     var margin: CGFloat = 15
     ///标签背景颜色
     var bgColor: UIColor = .white
+    ///选中的标签背景颜色
+    var selectBgColor: UIColor = .red
+    ///边框的颜色
+    var strokeColor: UIColor = .red
+    ///边框是否是虚线 true=虚线 false=实线
+    var isShape: Bool = true
     ///文字离标签间距
     var tagInsets: UIEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
     ///标签圆角
     var radius: CGFloat = 0
     ///默认选中第几个标签
     var selectIndex: Int = -1
-    
+    ///改变选择的标签
+    var changeSelectIndex: Int = -1 {
+        didSet {
+            titleBtnClike(btn: titleBtns[changeSelectIndex])
+        }
+    }
     /*
      * 只有上下排列才需要
      */
@@ -66,9 +77,9 @@ class XHTagView: UIView {
     private var bgScrollView: UIScrollView?
     //标签views
     private var tagViews: [UIView] = []
-    //上一个选中的标签
+    //上一个选中的标签按钮
     private var lastSelectTagBtn: UIButton?
-    //上一个选中的标签
+    //上一个选中的标签View
     private var lastSelectBgView: UIView?
     
     //标签的button
@@ -76,15 +87,6 @@ class XHTagView: UIView {
     
     typealias selectTagBlack = (_ index: Int) -> ()
     private var selectTag: selectTagBlack?
-    
-    lazy var shapeLayer: CAShapeLayer = {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = selectColor.cgColor
-        shapeLayer.fillColor = nil
-        shapeLayer.lineWidth = 2
-        shapeLayer.lineDashPattern = [4, 2] // 4 is the length of dash, 2 is the length of the gap
-        return shapeLayer
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -120,6 +122,7 @@ class XHTagView: UIView {
     }
     private func addLabel(tags: [String]) {
         tagViews.removeAll()
+        titleBtns.removeAll()
         if tags.count == 0 {
             return
         }
@@ -144,7 +147,21 @@ class XHTagView: UIView {
                 bgView.layer.cornerRadius = radius
                 bgView.layer.masksToBounds = true
                 bgView.frame.size.width = titleBtn.frame.width + tagInsets.left + tagInsets.right
-                                
+                
+                if isShape {
+                    let shapeLayer = CAShapeLayer()
+                    shapeLayer.strokeColor = strokeColor.cgColor
+                    shapeLayer.fillColor = nil
+                    shapeLayer.lineWidth = 2
+                    shapeLayer.lineDashPattern = [4, 2]
+                    let path = UIBezierPath(rect: bgView.bounds)
+                    shapeLayer.path = path.cgPath
+                    bgView.layer.addSublayer(shapeLayer)
+                } else {
+                    bgView.layer.borderWidth = 1
+                    bgView.layer.borderColor = strokeColor.cgColor
+                }
+                
                 if direction == .vertical {
                     if i == 0 {
                         bgView.frame.origin.x = padding
@@ -183,12 +200,11 @@ class XHTagView: UIView {
         if selectIndex >= 0 {
             lastSelectTagBtn = titleBtns[selectIndex]
             lastSelectTagBtn?.setTitleColor(selectColor, for: .normal)
+            lastSelectTagBtn?.setNeedsLayout()
             lastSelectBgView = tagViews[selectIndex]
-            let path = UIBezierPath(rect: lastSelectBgView!.bounds)
-            shapeLayer.path = path.cgPath
-            lastSelectBgView?.layer.addSublayer(shapeLayer)
+            lastSelectBgView?.backgroundColor = selectBgColor
+            changeStrokeColor(view: lastSelectBgView, color: selectBgColor)
         }
-        
     }
     
     ///标签点击
@@ -197,23 +213,31 @@ class XHTagView: UIView {
             lastSelectTagBtn?.setTitleColor(titleColor, for: .normal)
         }
         if lastSelectBgView != nil {
-            guard let sublayers = lastSelectBgView?.layer.sublayers else { return }
-            for layer in sublayers {
-                // 检查是否是我们自定义添加的 layer，然后移除
-                if let shapeLayer = layer as? CAShapeLayer {
-                    shapeLayer.removeFromSuperlayer()
-                }
-            }
+            lastSelectBgView?.backgroundColor = bgColor
+            changeStrokeColor(view: lastSelectBgView, color: selectBgColor)
         }
         lastSelectTagBtn = btn
         lastSelectBgView = tagViews[btn.tag]
         
         btn.setTitleColor(selectColor, for: .normal)
-        let path = UIBezierPath(rect: tagViews[btn.tag].bounds)
-        shapeLayer.path = path.cgPath
-        tagViews[btn.tag].layer.addSublayer(shapeLayer)
+        tagViews[btn.tag].backgroundColor = selectBgColor
+        changeStrokeColor(view: tagViews[btn.tag], color: selectBgColor)
         
         selectTag?(btn.tag)
+    }
+    
+    func changeStrokeColor(view: UIView?, color: UIColor) {
+        if isShape {
+            guard let sublayers = view?.layer.sublayers else { return }
+            for layer in sublayers {
+                // 检查是否是我们自定义添加的 layer，然后移除
+                if let shapeLayer = layer as? CAShapeLayer {
+                    shapeLayer.strokeColor = color.cgColor
+                }
+            }
+        } else {
+            view?.layer.borderColor = color.cgColor
+        }
     }
 
 }
