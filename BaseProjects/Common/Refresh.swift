@@ -9,24 +9,24 @@ import UIKit
 import MJRefresh
 
 struct Refresh {
+    static let shared = Refresh()
     
-    static let shaer = Refresh()
-    
-    func setupRefresh(scrollView: UIScrollView, refreshingHeader refreshingHeaderBlock: @escaping () -> (), refreshingFooter refreshingFooterBlock: @escaping () -> ()) {
-        let header = MJRefreshNormalHeader(refreshingBlock: {
-            refreshingHeaderBlock()
-        })
+    func setupRefresh(
+        scrollView: UIScrollView,
+        refreshingHeader: @escaping () -> (),
+        refreshingFooter: @escaping () -> ()
+    ) {
+        let header = MJRefreshNormalHeader(refreshingBlock: refreshingHeader)
         header.lastUpdatedTimeLabel?.isHidden = true
         header.stateLabel?.isHidden = true
         scrollView.mj_header = header
-        let footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            refreshingFooterBlock()
-        })
+        
+        let footer = MJRefreshAutoNormalFooter(refreshingBlock: refreshingFooter)
         footer.setTitle("到底啦~", for: .noMoreData)
         scrollView.mj_footer = footer
     }
     
-    func endRefreshing(scrollView: UIScrollView){
+    func endRefreshing(scrollView: UIScrollView) {
         scrollView.mj_header?.endRefreshing()
         scrollView.mj_footer?.endRefreshing()
     }
@@ -34,29 +34,28 @@ struct Refresh {
     func endRefreshingWithNoMoreData(scrollView: UIScrollView) {
         scrollView.mj_footer?.endRefreshingWithNoMoreData()
     }
-    
 }
 
 @objcMembers
-class RefreshClass {
+final class RefreshClass: NSObject {
+    static let shared = RefreshClass()
     
-    static let shaer = Refresh()
-    
-    func setupRefresh(scrollView: UIScrollView, refreshingHeader refreshingHeaderBlock: @escaping () -> (), refreshingFooter refreshingFooterBlock: @escaping () -> ()) {
-        let header = MJRefreshNormalHeader(refreshingBlock: {
-            refreshingHeaderBlock()
-        })
+    func setupRefresh(
+        scrollView: UIScrollView,
+        refreshingHeader: @escaping () -> (),
+        refreshingFooter: @escaping () -> ()
+    ) {
+        let header = MJRefreshNormalHeader(refreshingBlock: refreshingHeader)
         header.lastUpdatedTimeLabel?.isHidden = true
         header.stateLabel?.isHidden = true
         scrollView.mj_header = header
-        let footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            refreshingFooterBlock()
-        })
+        
+        let footer = MJRefreshAutoNormalFooter(refreshingBlock: refreshingFooter)
         footer.setTitle("到底啦~", for: .noMoreData)
         scrollView.mj_footer = footer
     }
     
-    func endRefreshing(scrollView: UIScrollView){
+    func endRefreshing(scrollView: UIScrollView) {
         scrollView.mj_header?.endRefreshing()
         scrollView.mj_footer?.endRefreshing()
     }
@@ -64,5 +63,4 @@ class RefreshClass {
     func endRefreshingWithNoMoreData(scrollView: UIScrollView) {
         scrollView.mj_footer?.endRefreshingWithNoMoreData()
     }
-    
 }

@@ -8,123 +8,105 @@
 import UIKit
 
 enum XHButtonMode {
-    case top
-    case bottom
-    case left
-    case right
+    case top, bottom, left, right
 }
 
 extension UIButton {
-    /// 快速调整图片与文字位置
-    ///
-    /// - Parameters:
-    ///   - buttonMode: 图片所在位置
-    ///   - spacing: 文字和图片之间的间距
     
-    func XHJustTitle(topspace: CGFloat = 5, leftspace: CGFloat = 5){
-        var labelEdgeInsets = UIEdgeInsets.zero
-        labelEdgeInsets = UIEdgeInsets(top: topspace, left: leftspace, bottom: topspace, right: leftspace)
-        self.contentHorizontalAlignment = .center
-        self.contentVerticalAlignment = .center
-        self.contentEdgeInsets = labelEdgeInsets
+    /// 快速设置按钮内容的内边距（图片和文字统一的间距）
+    /// - Parameters:
+    ///   - topSpace: 上边距，默认5
+    ///   - leftSpace: 左边距，默认5
+    func xhJustTitle(topSpace: CGFloat = 5, leftSpace: CGFloat = 5) {
+        if #available(iOS 15.0, *) {
+            var config = self.configuration ?? UIButton.Configuration.plain()
+            config.contentInsets = NSDirectionalEdgeInsets(top: topSpace, leading: leftSpace, bottom: topSpace, trailing: leftSpace)
+            self.configuration = config
+        } else {
+            let edgeInsets = UIEdgeInsets(top: topSpace, left: leftSpace, bottom: topSpace, right: leftSpace)
+            self.contentHorizontalAlignment = .center
+            self.contentVerticalAlignment = .center
+            self.contentEdgeInsets = edgeInsets
+        }
     }
     
-    func XHLocationAdjust(style: XHButtonMode = XHButtonMode.left, space:CGFloat = 5){
+    /// 调整按钮中图片和文字的位置关系
+    /// - Parameters:
+    ///   - style: 图片位置，默认为左侧
+    ///   - space: 图片和文字间距，默认5
+    func xhLocationAdjust(style: XHButtonMode = .left, space: CGFloat = 5) {
         
-        let imageWith = imageView?.bounds.width ?? 0
-        let imageHeight = imageView?.bounds.height ?? 0
-        
-        let labelWidth = titleLabel?.intrinsicContentSize.width ?? 0
-        let labelHeight = titleLabel?.intrinsicContentSize.height ?? 0
-        
-        var imageEdgeInsets = UIEdgeInsets.zero
-        var labelEdgeInsets = UIEdgeInsets.zero
-        var contentEdgeInsets = UIEdgeInsets.zero
-        
-        let bWidth = self.bounds.width
-        
-        let min_height = min(imageHeight, labelHeight)
-        
-        switch style {
+        if #available(iOS 15.0, *) {
+            var config = self.configuration ?? UIButton.Configuration.plain()
+            config.imagePlacement = {
+                switch style {
+                case .top: return .top
+                case .bottom: return .bottom
+                case .left: return .leading
+                case .right: return .trailing
+                }
+            }()
+            config.imagePadding = space
+            self.configuration = config
+            
+            // 如果要调整contentEdgeInsets用contentInsets
+            // 这里不额外设置contentInsets，默认即可
+        } else {
+            guard let imageView = imageView, let titleLabel = titleLabel else { return }
+            
+            let imageWidth = imageView.frame.size.width
+            let imageHeight = imageView.frame.size.height
+            let labelWidth = titleLabel.intrinsicContentSize.width
+            let labelHeight = titleLabel.intrinsicContentSize.height
+            let buttonWidth = bounds.width
+            let minHeight = min(imageHeight, labelHeight)
+            
+            var imageEdgeInsets = UIEdgeInsets.zero
+            var labelEdgeInsets = UIEdgeInsets.zero
+            var contentEdgeInsets = UIEdgeInsets.zero
+            
+            switch style {
             case .left:
-                self.contentVerticalAlignment = .center
-                imageEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: 0,
-                                               bottom: 0,
-                                               right: 0)
-                labelEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: space,
-                                               bottom: 0,
-                                               right: -space)
-                contentEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: space)
-            case .right:
-                self.contentVerticalAlignment = .center
-                var w_di = labelWidth + space/2
-                if (labelWidth+imageWith+space) > bWidth{
-                    let labelWidth_f = self.titleLabel?.frame.width ?? 0
-                    w_di = labelWidth_f + space/2
-                }
-                imageEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: w_di,
-                                               bottom: 0,
-                                               right: -w_di)
-                labelEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: -(imageWith+space/2),
-                                               bottom: 0,
-                                               right: imageWith+space/2)
-                contentEdgeInsets = UIEdgeInsets(top: 0, left: space/2, bottom: 0, right: space/2.0)
-            case .top:
-                //img在上或者在下 一版按钮是水平垂直居中的
-                self.contentHorizontalAlignment = .center
-                self.contentVerticalAlignment = .center
+                contentVerticalAlignment = .center
+                imageEdgeInsets = .zero
+                labelEdgeInsets = UIEdgeInsets(top: 0, left: space, bottom: 0, right: -space)
+                contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: space)
                 
-                var w_di = labelWidth/2.0
-                //如果内容宽度大于button宽度 改变计算方式
-                if (labelWidth+imageWith+space) > bWidth{
-                    w_di = (bWidth - imageWith)/2
+            case .right:
+                contentVerticalAlignment = .center
+                var offsetLabel = labelWidth + space / 2
+                if labelWidth + imageWidth + space > buttonWidth {
+                    offsetLabel = (titleLabel.frame.width) + space / 2
                 }
-                //考虑图片+显示文字宽度大于按钮总宽度的情况
-                let labelWidth_f = self.titleLabel?.frame.width ?? 0
-                if (imageWith+labelWidth_f+space)>bWidth{
-                    w_di = (bWidth - imageWith)/2
+                imageEdgeInsets = UIEdgeInsets(top: 0, left: offsetLabel, bottom: 0, right: -offsetLabel)
+                labelEdgeInsets = UIEdgeInsets(top: 0, left: -(imageWidth + space / 2), bottom: 0, right: imageWidth + space / 2)
+                contentEdgeInsets = UIEdgeInsets(top: 0, left: space / 2, bottom: 0, right: space / 2)
+                
+            case .top, .bottom:
+                contentHorizontalAlignment = .center
+                contentVerticalAlignment = .center
+                
+                var offsetLabel = labelWidth / 2
+                if labelWidth + imageWidth + space > buttonWidth {
+                    offsetLabel = (buttonWidth - imageWidth) / 2
                 }
-                imageEdgeInsets = UIEdgeInsets(top: -(labelHeight+space),
-                                               left: w_di,
-                                               bottom: 0,
-                                               right: -w_di)
-                labelEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: -imageWith,
-                                               bottom:-(space+imageHeight),
-                                               right: 0)
-                let h_di = (min_height+space)/2.0
-                contentEdgeInsets = UIEdgeInsets(top:h_di,left: 0,bottom:h_di,right: 0)
-            case .bottom:
-                //img在上或者在下 一版按钮是水平垂直居中的
-                self.contentHorizontalAlignment = .center
-                self.contentVerticalAlignment = .center
-                var w_di = labelWidth/2
-                //如果内容宽度大于button宽度 改变计算方式
-                if (labelWidth+imageWith+space) > bWidth{
-                    w_di = (bWidth - imageWith)/2
+                if imageWidth + titleLabel.frame.width + space > buttonWidth {
+                    offsetLabel = (buttonWidth - imageWidth) / 2
                 }
-                //考虑图片+显示文字宽度大于按钮总宽度的情况
-                let labelWidth_f = self.titleLabel?.frame.width ?? 0
-                if (imageWith+labelWidth_f+space)>bWidth{
-                    w_di = (bWidth - imageWith)/2
+                let halfHeight = (minHeight + space) / 2
+                if style == .top {
+                    imageEdgeInsets = UIEdgeInsets(top: -(labelHeight + space), left: offsetLabel, bottom: 0, right: -offsetLabel)
+                    labelEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth, bottom: -(space + imageHeight), right: 0)
+                } else {
+                    imageEdgeInsets = UIEdgeInsets(top: 0, left: offsetLabel, bottom: -(labelHeight + space), right: -offsetLabel)
+                    labelEdgeInsets = UIEdgeInsets(top: -(space + imageHeight), left: -imageWidth, bottom: 0, right: 0)
                 }
-                imageEdgeInsets = UIEdgeInsets(top: 0,
-                                               left: w_di,
-                                               bottom: -(labelHeight+space),
-                                               right: -w_di)
-                labelEdgeInsets = UIEdgeInsets(top: -(space+imageHeight),
-                                               left: -imageWith,
-                                               bottom: 0,
-                                               right: 0)
-                let h_di = (min_height+space)/2.0
-                contentEdgeInsets = UIEdgeInsets(top:h_di, left: 0,bottom:h_di,right: 0)
+                contentEdgeInsets = UIEdgeInsets(top: halfHeight, left: 0, bottom: halfHeight, right: 0)
+            }
+            
+            self.imageEdgeInsets = imageEdgeInsets
+            self.titleEdgeInsets = labelEdgeInsets
+            self.contentEdgeInsets = contentEdgeInsets
         }
-        self.contentEdgeInsets = contentEdgeInsets
-        self.titleEdgeInsets = labelEdgeInsets
-        self.imageEdgeInsets = imageEdgeInsets
     }
 }

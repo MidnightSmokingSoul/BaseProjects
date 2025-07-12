@@ -26,13 +26,58 @@ PODS:
     - BRPickerView/Deprecated/Base
   - BRPickerView/TextPicker (2.9.1):
     - BRPickerView/Core
+  - EmptyDataSet-Swift (5.0.0)
+  - FDFullscreenPopGesture (1.1)
+  - FSPagerView (0.8.3)
   - GrowingTextView (0.7.2)
-  - HandyJSON (5.0.2)
   - IQKeyboardManagerSwift (7.1.1)
+  - JXPagingView (2.1.3):
+    - JXPagingView/Pager (= 2.1.3)
+    - JXPagingView/Paging (= 2.1.3)
+  - JXPagingView/Pager (2.1.3)
+  - JXPagingView/Paging (2.1.3)
+  - JXPhotoBrowser (3.1.5)
   - JXSegmentedView (1.4.1)
   - Kingfisher (7.12.0)
   - MJRefresh (3.7.9)
+  - SmartCodable (5.0.14):
+    - SmartCodable/Core (= 5.0.14)
+  - SmartCodable/Core (5.0.14)
   - SnapKit (5.7.1)
+  - SwifterSwift (7.0.0):
+    - SwifterSwift/AppKit (= 7.0.0)
+    - SwifterSwift/CoreAnimation (= 7.0.0)
+    - SwifterSwift/CoreGraphics (= 7.0.0)
+    - SwifterSwift/CoreLocation (= 7.0.0)
+    - SwifterSwift/CryptoKit (= 7.0.0)
+    - SwifterSwift/Dispatch (= 7.0.0)
+    - SwifterSwift/Foundation (= 7.0.0)
+    - SwifterSwift/HealthKit (= 7.0.0)
+    - SwifterSwift/MapKit (= 7.0.0)
+    - SwifterSwift/SceneKit (= 7.0.0)
+    - SwifterSwift/SpriteKit (= 7.0.0)
+    - SwifterSwift/StoreKit (= 7.0.0)
+    - SwifterSwift/SwiftStdlib (= 7.0.0)
+    - SwifterSwift/UIKit (= 7.0.0)
+    - SwifterSwift/WebKit (= 7.0.0)
+  - SwifterSwift/AppKit (7.0.0)
+  - SwifterSwift/CoreAnimation (7.0.0)
+  - SwifterSwift/CoreGraphics (7.0.0)
+  - SwifterSwift/CoreLocation (7.0.0)
+  - SwifterSwift/CryptoKit (7.0.0)
+  - SwifterSwift/Dispatch (7.0.0)
+  - SwifterSwift/Foundation (7.0.0)
+  - SwifterSwift/HealthKit (7.0.0)
+  - SwifterSwift/MapKit (7.0.0)
+  - SwifterSwift/SceneKit (7.0.0)
+  - SwifterSwift/SpriteKit (7.0.0)
+  - SwifterSwift/StoreKit (7.0.0)
+  - SwifterSwift/SwiftStdlib (7.0.0)
+  - SwifterSwift/UIKit (7.0.0)
+  - SwifterSwift/WebKit (7.0.0)
+  - SwiftMessages (10.0.1):
+    - SwiftMessages/App (= 10.0.1)
+  - SwiftMessages/App (10.0.1)
   - SwiftyJSON (5.0.2)
   - Toast-Swift (5.1.1)
   - ZLPhotoBrowser (4.5.4):
@@ -42,23 +87,29 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - BRPickerView
+  - EmptyDataSet-Swift
+  - FDFullscreenPopGesture
+  - FSPagerView
   - GrowingTextView
-  - HandyJSON
   - IQKeyboardManagerSwift
+  - JXPagingView
+  - JXPhotoBrowser
   - JXSegmentedView
   - Kingfisher
   - MJRefresh
+  - SmartCodable
   - SnapKit
+  - SwifterSwift
+  - SwiftMessages
   - SwiftyJSON
   - Toast-Swift
   - ZLPhotoBrowser
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - BRPickerView
     - GrowingTextView
-    - HandyJSON
     - IQKeyboardManagerSwift
     - JXSegmentedView
     - Kingfisher
@@ -67,21 +118,37 @@ SPEC REPOS:
     - SwiftyJSON
     - Toast-Swift
     - ZLPhotoBrowser
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - EmptyDataSet-Swift
+    - FDFullscreenPopGesture
+    - FSPagerView
+    - JXPagingView
+    - JXPhotoBrowser
+    - SmartCodable
+    - SwifterSwift
+    - SwiftMessages
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   BRPickerView: 6dd69ea2c48e0a0abf1d197a705050e13143ee63
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
-  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
+  JXPagingView: afdd2e9af09c90160dd232b970d603cc6e7ddd0e
+  JXPhotoBrowser: a6d745f5711bde79b02ba29165e2456ab5bde476
   JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
   Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
+  SmartCodable: 384edba3cf436a430b35049962685b08ad3ed5cc
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SwifterSwift: e9caf990fc72e835432280755d1f4c43f2a483d5
+  SwiftMessages: 759b4a0bf5c3a116a0d7e8a34b098ba83c458625
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
   ZLPhotoBrowser: 68ab8554845ce05a41d49f293a0e30beb519101f
 
-PODFILE CHECKSUM: a04a1ea9c7209aa83a4fdf9446560813e5472164
+PODFILE CHECKSUM: 161d68c800667a553f090fac70c69ce31ad2a1db
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.16.2

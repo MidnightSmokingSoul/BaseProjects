@@ -21,6 +21,10 @@ class BaseTabBarController: UITabBarController {
         tabBarAppearance.backgroundColor = .white
         tabBarAppearance.shadowColor = .white
         tabBarAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        // 设置未选中文字颜色
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor("#333333")]
+            // 设置选中文字颜色
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor("#025BFF")]
         UITabBar.appearance().isTranslucent = false
         UITabBar.appearance().standardAppearance = tabBarAppearance
         if #available(iOS 15, *) {
@@ -29,8 +33,6 @@ class BaseTabBarController: UITabBarController {
         
         selectedIndex = 0
         lastItem = tabBar.selectedItem
-        UITabBar.appearance().tintColor = UIColor("#C63520")
-        UITabBar.appearance().unselectedItemTintColor = UIColor("#999999")
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)
         
     }

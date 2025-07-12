@@ -6,147 +6,188 @@
 //
 
 import UIKit
-import CommonCrypto
+
+// MARK: - String+Size.swift
+extension String {
+    
+    /// 计算字符串在指定字体和区域下的尺寸
+    func boundingSize(font: UIFont, maxSize: CGSize, paragraphStyle: NSParagraphStyle? = nil) -> CGSize {
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
+        if let style = paragraphStyle {
+            attributes[.paragraphStyle] = style
+        }
+        return (self as NSString).boundingRect(
+            with: maxSize,
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: attributes,
+            context: nil
+        ).size
+    }
+
+    /// 获取字符串对应 Label 高度
+    func heightForLabel(width: CGFloat, font: UIFont) -> CGFloat {
+        let size = boundingSize(font: font, maxSize: CGSize(width: width, height: .greatestFiniteMagnitude))
+        return ceil(size.height)
+    }
+}
+
+
+// MARK: - String+Trim.swift
+extension String {
+    
+    /// 去掉首尾空格
+    var trimmingWhitespace: String {
+        trimmingCharacters(in: .whitespaces)
+    }
+
+    /// 去掉首尾空格和换行符
+    var trimmingWhitespaceAndNewlines: String {
+        trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// 去掉所有空格
+    var removingAllSpaces: String {
+        replacingOccurrences(of: " ", with: "")
+    }
+}
+
+
+// MARK: - String+Regex.swift
+extension String {
+    
+    // MARK:  字符URL格式化,中文路径encoding
+    var urlEncoding: String {
+        let url = self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        return url!
+    }
+    
+    // MARK:  手机号替换中间四位
+    var replacePhone: String {
+        let start = self.index(self.startIndex, offsetBy: 3)
+        let end = self.index(self.startIndex, offsetBy: 7)
+        let range = Range(uncheckedBounds: (lower: start, upper: end))
+        return self.replacingCharacters(in: range, with: "****")
+    }
+    
+    // MARK: 手机号正则表达式
+    var isValidMobileNumber: Bool {
+        let phoneRegex = try? NSRegularExpression(pattern: "^(13\\d|14[5-9]|15[0-35-9]|16[2567]|17[0-8]|18\\d|19[0-35-9])\\d{8}$", options: NSRegularExpression.Options.caseInsensitive)
+        return phoneRegex?.firstMatch(in: self, options: [], range: NSMakeRange(0, self.count)) != nil
+    }
+    
+    // MARK: 清理不可见的控制字符，包括方向控制符（如 U+202E）
+    var cleanedFormatControlCharacters: String {
+        let forbiddenScalars: Set<UInt32> = [
+            0x200B, // Zero-width space
+            0x200C, // Zero-width non-joiner
+            0x200D, // Zero-width joiner
+            0x200E, // LRM ← 你现在遇到的
+            0x200F, // RLM
+            0x202A, 0x202B, 0x202C, 0x202D, 0x202E, // Directional overrides
+            0x2066, 0x2067, 0x2068, 0x2069           // Bidirectional isolate controls
+        ]
+        
+        return self.unicodeScalars
+            .filter { !forbiddenScalars.contains($0.value) }
+            .map(String.init)
+            .joined()
+    }
+
+    /// 验证是否是邮箱
+    var isValidEmail: Bool {
+        validateByRegex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+    }
+
+    /// 通用正则校验
+    func validateByRegex(_ pattern: String) -> Bool {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
+    }
+}
+
+
+// MARK: - String+Crypto.swift
+import CryptoKit
 
 extension String {
-    ///计算字的大小
-    func stringSize(textFont: CGFloat, isBold: Bool = false, maxSize size: CGSize, paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()) -> CGSize {
-        let str: NSString = self as NSString
-        let rect = str.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: isBold ? UIFont.boldSystemFont(ofSize: textFont) : UIFont.systemFont(ofSize: textFont), NSAttributedString.Key.paragraphStyle: paragraphStyle], context: nil)
-        return rect.size
+    var sha256: String {
+        let data = Data(self.utf8)
+        let hashed = SHA256.hash(data: data)
+        return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
-    
-    /// 根据字符串 获取 Label 控件的高度
-    func getLabelStringHeightFrom(labelWidth: CGFloat, font: UIFont) -> CGFloat {
-        let topOffset = CGFloat(0)
-        let bottomOffset = CGFloat(0)
-        let textContentWidth = labelWidth
-        let normalText: NSString = self as NSString
-        let size = CGSize(width: textContentWidth, height: CGFloat.greatestFiniteMagnitude)
-        let attributes = [NSAttributedString.Key.font: font]
-        let stringSize = normalText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context:nil).size
-        return CGFloat(ceilf(Float(stringSize.height)))+topOffset+bottomOffset
-    }
-    
-    ///去掉首尾空格
-    var removeHeadAndTailSpace:String {
-        let whitespace = NSCharacterSet.whitespaces
-        return self.trimmingCharacters(in: whitespace)
-    }
-    ///去掉首尾空格 包括后面的换行 \n
-    var removeHeadAndTailSpacePro:String {
-        let whitespace = NSCharacterSet.whitespacesAndNewlines
-        return self.trimmingCharacters(in: whitespace)
-    }
-    ///去掉所有空格
-    var removeAllSapce: String {
-        return self.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-    }
-    
-    ///获取字符串里第一个出现的字符下标
-    func positionOf(sub:String, backwards:Bool = false) -> Int? {
-        var pos: Int?
-        if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
-            if !range.isEmpty {
-                pos = self.distance(from:startIndex, to:range.lowerBound)
-            }
-        }
-        return pos
-    }
-    
-    ///是否是11位号码
-    func isValidateMobile() -> Bool {
-        let PHONE_REGEX = "^\\d{11}$"
-        return validateByRegex(regex: PHONE_REGEX)
-    }
-    ///是否是邮箱
-    func isValidateEmail() -> Bool {
-        let EMAIL_REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        return validateByRegex(regex: EMAIL_REGEX)
-    }
-    
-    func validateByRegex(regex: String) -> Bool {
-        let test = NSPredicate(format: "SELF MATCHES %@", regex)
-        return test.evaluate(with: self)
-    }
-    
-    var md5:String {
-        let utf8 = cString(using: .utf8)
-        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        CC_MD5(utf8, CC_LONG(utf8!.count - 1), &digest)
-        return digest.reduce("") { $0 + String(format:"%02x", $1) }
-    }
-    ///只返回数字
-    var westernArabicNumeralsOnly: String {
-        let pattern = UnicodeScalar("0")..."9"
-        return String(unicodeScalars.compactMap { pattern ~= $0 ? Character($0) : nil })
-    }
-    
-    //NSRange和range转换
-    func nsRange(from range: Range<String.Index>) -> NSRange? {
-        if let from = range.lowerBound.samePosition(in: utf16), let to = range.upperBound.samePosition(in: utf16) {
-            return NSRange(location: utf16.distance(from: utf16.startIndex, to: from), length: utf16.distance(from: from, to: to))
-        }
-        return nil
-    }
-    func ranges(of string: String) -> [Range<String.Index>] {
-        var rangeArray = [Range<String.Index>]()
-        var searchedRange: Range<String.Index>
-        guard let sr = self.range(of: self) else {
-            return rangeArray
-        }
-        searchedRange = sr
-        
-        var resultRange = self.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
-        while let range = resultRange {
-            rangeArray.append(range)
-            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
-            resultRange = self.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
-        }
-        return rangeArray
-    }
-    
+}
+
+
+// MARK: - String+Subscript.swift
+extension String {
     func index(_ offset: Int) -> Index {
-        return self.index(startIndex, offsetBy: offset)
+        self.index(startIndex, offsetBy: offset)
     }
-    func substring(from: Int) -> String {
-        let fromIndex = index(from)
+
+    func slice(from: Int, to: Int) -> String {
+        let start = index(from)
+        let end = index(to)
+        return String(self[start..<end])
+    }
+
+    func substring(from index: Int) -> String {
+        let fromIndex = self.index(index)
         return String(self[fromIndex...])
     }
-    func substring(to: Int) -> String {
-        let toIndex = index(to)
+
+    func substring(to index: Int) -> String {
+        let toIndex = self.index(index)
         return String(self[..<toIndex])
     }
-    //获取两个下标中间的字符串
-    func substring(start: Int, end: Int) -> String {
-        let startIndex = index(start)
-        let endIndex = index(end)
-        return String(self[startIndex..<endIndex])
+}
+
+
+// MARK: - String+Range.swift
+extension String {
+    func nsRange(from range: Range<String.Index>) -> NSRange? {
+        guard let from = range.lowerBound.samePosition(in: utf16),
+              let to = range.upperBound.samePosition(in: utf16) else { return nil }
+        return NSRange(location: utf16.distance(from: utf16.startIndex, to: from),
+                       length: utf16.distance(from: from, to: to))
     }
+
+    func ranges(of substring: String) -> [Range<String.Index>] {
+        var result: [Range<String.Index>] = []
+        var searchRange = startIndex..<endIndex
+        while let found = range(of: substring, options: [], range: searchRange) {
+            result.append(found)
+            searchRange = found.upperBound..<endIndex
+        }
+        return result
+    }
+}
+
+
+// MARK: - String+Utility.swift
+extension String {
     
-    //从String中截取出参数
-    var urlParameters: [String: AnyObject]? {
-        // 截取是否有参数
-        guard let urlComponents = URLComponents(string: self), let queryItems = urlComponents.queryItems else {
+    /// 提取字符串中的数字
+    var digitsOnly: String {
+        filter { $0.isNumber }
+    }
+
+    /// 获取指定子字符串首次或最后一次出现的位置
+    func position(of sub: String, backwards: Bool = false) -> Int? {
+        guard let range = range(of: sub, options: backwards ? .backwards : []) else { return nil }
+        return distance(from: startIndex, to: range.lowerBound)
+    }
+
+    /// 解析 URL 参数为字典
+    var urlParameters: [String: String]? {
+        guard let components = URLComponents(string: self), let queryItems = components.queryItems else {
             return nil
         }
-        // 参数字典
-        var parameters = [String: AnyObject]()
-        // 遍历参数
-        queryItems.forEach({ (item) in
-            // 判断参数是否是数组
-            if let existValue = parameters[item.name], let value = item.value {
-                // 已存在的值，生成数组
-                if var existValue = existValue as? [AnyObject] {
-                    existValue.append(value as AnyObject)
-                } else {
-                    parameters[item.name] = [existValue, value] as AnyObject
-                }
-            } else {
-                parameters[item.name] = item.value as AnyObject
+        var params = [String: String]()
+        for item in queryItems {
+            if let value = item.value {
+                params[item.name] = value
             }
-        })
-        return parameters
+        }
+        return params
     }
-    
 }

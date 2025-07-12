@@ -1,6 +1,9 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
+source 'https://github.com/CocoaPods/Specs.git'
+#source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'  # 清华源
+
 target 'BaseProjects' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -15,13 +18,16 @@ target 'BaseProjects' do
   pod 'MJRefresh'   #下拉刷新
   pod 'SnapKit'   #控件约束
   pod 'IQKeyboardManagerSwift'    #键盘控制
-  pod 'JXPhotoBrowser'    #获取相册图片
+  pod 'ZLPhotoBrowser'    #获取相册图片
+  pod 'JXPhotoBrowser'    #图片浏览器
   pod 'BRPickerView'    #日期和自定义选择器
   pod 'GrowingTextView'   #聊天输入框
   pod 'JXSegmentedView'   #分类滑动
-  pod 'JXPagingView'
-  pod 'SwifterSwift'
-  pod 'FDFullscreenPopGesture'
-  pod 'EmptyDataSet-Swift'
+  pod 'JXPagingView'   #分类滑动加HeaderView
+  pod 'FSPagerView'   #轮播图
+  pod 'SwifterSwift'   #Swift分类
+  pod 'FDFullscreenPopGesture'   #返回手势管理
+  pod 'EmptyDataSet-Swift'   #空数据提示
+  pod 'SwiftMessages'   #消息弹框 View弹出
   
 end

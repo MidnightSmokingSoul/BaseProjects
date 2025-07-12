@@ -7,40 +7,35 @@
 
 import UIKit
 
-extension Int {
-    ///数字超过一定数量变文字
-    func numberToString() -> String {
-        if self >= 1000 && self < 10000 {
-            let num: Double = Double(self) / 1000.0
-            return num.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0fk", num) : String(format: "%.1fk", num)
-        }
-        if self >= 10000 {
-            let num: Double = Double(self) / 10000.0
-            return num.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0fw", num) : String(format: "%.1fw", num)
-        }
-        return String(self)
+extension BinaryInteger {
+    
+    /// 将数字转为简洁缩写，如 1.2k、3.4w
+    func abbreviatedString() -> String {
+        let doubleValue = Double(self)
+        return doubleValue.abbreviatedString()
     }
 }
 
 extension Double {
-    /// 小数点后如果只是0，显示整数，如果不是，显示原来的值
-    var cleanZero : String {
-        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    
+    /// 去除小数点后多余的 0，例如 2.0 => 2
+    var cleanZero: String {
+        truncatingRemainder(dividingBy: 1) == 0
+            ? String(format: "%.0f", self)
+            : String(format: "%.2f", self)
     }
-    ///数字超过一定数量变文字
-    func numberToString() -> String {
-        if self >= 1000 && self < 10000 {
-            let num: Double = Double(self) / 1000.0
-            return String(format: "%.2fk", num)
+
+    /// 将数字转为简洁缩写，如 1.2k、3.4w、5.6m
+    func abbreviatedString() -> String {
+        switch self {
+        case 1_000..<10_000:
+            return (self / 1_000).cleanZero + "k"
+        case 10_000..<1_000_000:
+            return (self / 10_000).cleanZero + "w"
+        case 1_000_000...:
+            return (self / 1_000_000).cleanZero + "m"
+        default:
+            return cleanZero
         }
-        if self >= 10000 && self < 1000000 {
-            let num: Double = Double(self) / 10000.0
-            return String(format: "%.2fw", num)
-        }
-        if self >= 1000000 {
-            let num: Double = Double(self) / 10000.0
-            return String(format: "%.2fm", num)
-        }
-        return String(self)
     }
 }
