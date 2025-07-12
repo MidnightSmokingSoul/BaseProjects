@@ -147,12 +147,6 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
         // 如果最小日期大于了最大日期，就忽略两个值
         self.minDate = [NSDate distantPast]; // 0000-12-30 00:00:00 +0000
         self.maxDate = [NSDate distantFuture]; // 4001-01-01 00:00:00 +0000
-        
-        // 如果是12小时制，hour的最小值为1；hour的最大值为12
-        if (self.isTwelveHourMode) {
-            [self.minDate br_setTwelveHour:1];
-            [self.maxDate br_setTwelveHour:12];
-        }
     }
     
     // 3.默认选中的日期
@@ -431,12 +425,22 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
 }
 
 #pragma mark - 更新日期数据源数组
-- (void)reloadDateArrayWithUpdateMonth:(BOOL)updateMonth updateDay:(BOOL)updateDay updateHour:(BOOL)updateHour updateMinute:(BOOL)updateMinute updateSecond:(BOOL)updateSecond {
-    [self reloadDateArrayWithUpdateMonth:updateMonth updateDay:updateDay updateHour:updateHour updateMinute:updateMinute updateSecond:NO updateWeekOfMonth:NO updateWeekOfYear:NO updateQuarter:NO];
+- (void)reloadDateArrayWithUpdateMonth:(BOOL)updateMonth
+                             updateDay:(BOOL)updateDay
+                            updateHour:(BOOL)updateHour
+                          updateMinute:(BOOL)updateMinute
+                          updateSecond:(BOOL)updateSecond {
+    [self reloadDateArrayWithUpdateMonth:updateMonth updateDay:updateDay updateHour:updateHour updateMinute:updateMinute updateSecond:updateSecond updateWeekOfMonth:NO updateWeekOfYear:NO updateQuarter:NO];
 }
 
-- (void)reloadDateArrayWithUpdateMonth:(BOOL)updateMonth updateDay:(BOOL)updateDay updateHour:(BOOL)updateHour updateMinute:(BOOL)updateMinute updateSecond:(BOOL)updateSecond
-                     updateWeekOfMonth:(BOOL)updateWeekOfMonth updateWeekOfYear:(BOOL)updateWeekOfYear updateQuarter:(BOOL)updateQuarter {
+- (void)reloadDateArrayWithUpdateMonth:(BOOL)updateMonth
+                             updateDay:(BOOL)updateDay
+                            updateHour:(BOOL)updateHour
+                          updateMinute:(BOOL)updateMinute
+                          updateSecond:(BOOL)updateSecond
+                     updateWeekOfMonth:(BOOL)updateWeekOfMonth
+                      updateWeekOfYear:(BOOL)updateWeekOfYear
+                         updateQuarter:(BOOL)updateQuarter {
     _isAdjustSelectRow = NO;
     // 1.更新 monthArr
     if (self.yearArr.count == 0) {
@@ -879,14 +883,37 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
     [self.pickerStyle setupPickerSelectRowStyle:pickerView titleForRow:row forComponent:component];
     
     // 3.记录选择器滚动过程中选中的列和行
+    [self handlePickerViewRollingStatus:pickerView component:component];
+
+    return label;
+}
+
+#pragma mark - 处理选择器滚动状态
+- (void)handlePickerViewRollingStatus:(UIPickerView *)pickerView component:(NSInteger)component {
     // 获取选择器组件滚动中选中的行
     NSInteger selectRow = [pickerView selectedRowInComponent:component];
     if (selectRow >= 0) {
         self.rollingComponent = component;
-        self.rollingRow = selectRow;
+        // 根据滚动方向动态计算 rollingRow
+        NSInteger lastRow = self.rollingRow;
+        // 调整偏移量：当用户快速滚动并点击确定按钮时，可能导致选择不准确。这里简单的实现向前/向后多滚动一行（也可以根据滚动速度来调整偏移量）
+        NSInteger offset = 1;
+        if (lastRow >= 0) {
+            // 向上滚动
+            if (selectRow > lastRow) {
+                self.rollingRow = selectRow + offset;
+            } else if (selectRow < lastRow) {
+                // 向下滚动
+                self.rollingRow = selectRow - offset;
+            } else {
+                // 保持当前位置
+                self.rollingRow = selectRow;
+            }
+        } else {
+            // 首次滚动，默认向上滚动
+            self.rollingRow = selectRow + offset;
+        }
     }
-
-    return label;
 }
 
 // 返回每行的标题
@@ -1565,7 +1592,8 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
 // 设置列宽
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     NSInteger columnCount = [self numberOfComponentsInPickerView:pickerView];
-    CGFloat columnWidth = self.pickerView.bounds.size.width / columnCount;
+    CGFloat deltaSpace = columnCount > 3 ? 5 : 10;
+    CGFloat columnWidth = self.pickerView.bounds.size.width / columnCount - deltaSpace;
     if (self.pickerStyle.columnWidth > 0 && self.pickerStyle.columnWidth <= columnWidth) {
         return self.pickerStyle.columnWidth;
     }
@@ -1714,12 +1742,15 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
 
 #pragma mark - 添加日期单位到选择器
 - (void)addUnitLabel {
-    if (self.unitLabelArr.count > 0) {
-        for (UILabel *unitLabel in self.unitLabelArr) {
-            [unitLabel removeFromSuperview];
-        }
-        self.unitLabelArr = nil;
+    // 1. 批量移除所有单位标签
+    if (self.unitLabelArr && self.unitLabelArr.count > 0) {
+        [self.unitLabelArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
+    
+    // 2. 清空数组
+    self.unitLabelArr = nil;
+    
+    // 3. 重新创建并添加新单位标签
     self.unitLabelArr = [self setupPickerUnitLabel:self.pickerView unitArr:self.unitArr];
 }
 

@@ -23,10 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupKeyboard() {
         let manager = IQKeyboardManager.shared
-        manager.enable = true
+        manager.isEnabled = true
         manager.resignOnTouchOutside = true
-        manager.enableAutoToolbar = false
-        manager.keyboardDistanceFromTextField = 160
+        manager.keyboardDistance = 120
     }
 
     // MARK: UISceneSession Lifecycle

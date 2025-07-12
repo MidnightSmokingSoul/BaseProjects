@@ -191,7 +191,7 @@ typedef NS_ENUM(NSInteger, BRBorderStyle) {
 @property (nonatomic, assign) CGFloat rowHeight;
 /** 设置 picker 的列宽 */
 @property (nonatomic, assign) CGFloat columnWidth;
-/** 设置 picker 的列间隔，仅支持`BRStringPickerView` */
+/** 设置 picker 的列间隔，仅支持`BRTextPickerView` */
 @property (nonatomic, assign) CGFloat columnSpacing;
 
 /** 设置 picker 文本支持的最大行数，默认为 2 */

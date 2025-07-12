@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '15.6'
 
 source 'https://github.com/CocoaPods/Specs.git'
 #source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'  # 清华源
@@ -26,8 +26,17 @@ target 'BaseProjects' do
   pod 'JXPagingView'   #分类滑动加HeaderView
   pod 'FSPagerView'   #轮播图
   pod 'SwifterSwift'   #Swift分类
+  pod 'SwiftyUserDefaults'   #偏好设置储存
   pod 'FDFullscreenPopGesture'   #返回手势管理
   pod 'EmptyDataSet-Swift'   #空数据提示
   pod 'SwiftMessages'   #消息弹框 View弹出
   
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.6'
+    end
+  end
 end

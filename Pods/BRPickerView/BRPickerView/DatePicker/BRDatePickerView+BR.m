@@ -38,7 +38,7 @@ BRSYNTH_DUMMY_CLASS(BRDatePickerView_BR)
     
     // 如果是12小时制，hour的最小值为1
     if (self.isTwelveHourMode) {
-        [minDate br_setTwelveHour:1];
+        minDate = [minDate br_setTwelveHour:1];
     }
     
     return minDate;
@@ -64,7 +64,7 @@ BRSYNTH_DUMMY_CLASS(BRDatePickerView_BR)
     
     // 如果是12小时制，hour的最大值为12
     if (self.isTwelveHourMode) {
-        [maxDate br_setTwelveHour:12];
+        maxDate = [maxDate br_setTwelveHour:12];
     }
     
     return maxDate;
@@ -477,9 +477,21 @@ BRSYNTH_DUMMY_CLASS(BRDatePickerView_BR)
 - (NSArray *)setupPickerUnitLabel:(UIPickerView *)pickerView unitArr:(NSArray *)unitArr {
     NSMutableArray *tempArr = [[NSMutableArray alloc]init];
     for (NSInteger i = 0; i < pickerView.numberOfComponents; i++) {
-        // label宽度
-        CGFloat labelWidth = pickerView.bounds.size.width / pickerView.numberOfComponents;
-        // 根据占位文本长度去计算宽度
+        CGFloat componentWidth = [self pickerView:pickerView widthForComponent:i];
+        // 单位label
+        UILabel *unitLabel = [[UILabel alloc]init];
+        unitLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        unitLabel.backgroundColor = [UIColor clearColor];
+        unitLabel.font = self.pickerStyle.dateUnitTextFont;
+        unitLabel.textColor = self.pickerStyle.dateUnitTextColor;
+        // 字体自适应属性
+        unitLabel.adjustsFontSizeToFitWidth = YES;
+        // 自适应最小字体缩放比例
+        unitLabel.minimumScaleFactor = 0.5f;
+        unitLabel.text = (unitArr.count > 0 && i < unitArr.count) ? unitArr[i] : nil;
+        [unitLabel sizeToFit];
+        
+        // 根据占位文本长度去计算lable文本宽度
         NSString *tempText = @"00";
         if (i == 0) {
             switch (self.pickerMode) {
@@ -490,7 +502,7 @@ BRSYNTH_DUMMY_CLASS(BRDatePickerView_BR)
                 case BRDatePickerModeYM:
                 case BRDatePickerModeY:
                 {
-                    tempText = @"0123";
+                    tempText = @"0000";
                 }
                     break;
                     
@@ -501,30 +513,15 @@ BRSYNTH_DUMMY_CLASS(BRDatePickerView_BR)
         // 文本宽度
         CGFloat labelTextWidth = [tempText boundingRectWithSize:CGSizeMake(MAXFLOAT, self.pickerStyle.rowHeight)
                                                         options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                     attributes:@{NSFontAttributeName: self.pickerStyle.pickerTextFont}
+                                                     attributes:@{NSFontAttributeName:self.pickerStyle.selectRowTextFont ?: self.pickerStyle.pickerTextFont}
                                                         context:nil].size.width;
-        // 单位label
-        UILabel *unitLabel = [[UILabel alloc]init];
-        unitLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-        unitLabel.backgroundColor = [UIColor clearColor];
-        if (self.pickerMode != BRDatePickerModeYMDHMS) {
-            unitLabel.textAlignment = NSTextAlignmentCenter;
-        }
-        unitLabel.font = self.pickerStyle.dateUnitTextFont;
-        unitLabel.textColor = self.pickerStyle.dateUnitTextColor;
-        // 字体自适应属性
-        unitLabel.adjustsFontSizeToFitWidth = YES;
-        // 自适应最小字体缩放比例
-        unitLabel.minimumScaleFactor = 0.5f;
-        unitLabel.text = (unitArr.count > 0 && i < unitArr.count) ? unitArr[i] : nil;
-        
-        CGFloat originX = i * labelWidth + labelWidth / 2.0 + labelTextWidth / 2.0 + self.pickerStyle.dateUnitOffsetX;
-        CGFloat originY = (pickerView.frame.size.height - self.pickerStyle.rowHeight) / 2 + self.pickerStyle.dateUnitOffsetY;
-        unitLabel.frame = CGRectMake(originX, originY, MAX(self.pickerStyle.rowHeight, labelTextWidth), self.pickerStyle.rowHeight);
-        
+        CGFloat margin = (pickerView.frame.size.width - componentWidth * pickerView.numberOfComponents) / 2;
+        CGFloat deltaX =  (6 - pickerView.numberOfComponents) * 3 + 2;
+        CGFloat centerX = margin + componentWidth / 2.0f + i * (componentWidth + 5) + labelTextWidth / 2.0f + deltaX + self.pickerStyle.dateUnitOffsetX;
+        CGFloat centerY = pickerView.frame.origin.y + pickerView.frame.size.height / 2.0f + self.pickerStyle.dateUnitOffsetY;
+        unitLabel.center = CGPointMake(centerX, centerY);
         [tempArr addObject:unitLabel];
-        
-        [pickerView addSubview:unitLabel];
+        [pickerView.superview addSubview:unitLabel];
     }
     
     return [tempArr copy];

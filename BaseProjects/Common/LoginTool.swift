@@ -5,7 +5,7 @@
 //  Created by 张轩赫 on 2025/7/11.
 //
 
-import Foundation
+import UIKit
 
 struct LoginTool {
     
@@ -26,7 +26,7 @@ struct LoginTool {
     static func showLogin(currentVC: UIViewController, completion: (() -> Void)? = nil) {
         // 防止重复 push
         if !APP.current.isKind(of: LoginViewController.self) {
-            let login = LoginViewController.initByName(storyboardName: "Home")
+            let login = LoginViewController()
             login.loginSuccessCallback = {
                 completion?()
             }

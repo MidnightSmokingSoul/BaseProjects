@@ -1,36 +1,75 @@
 PODS:
-  - Alamofire (5.9.1)
-  - BRPickerView (2.9.1):
-    - BRPickerView/All (= 2.9.1)
-  - BRPickerView/All (2.9.1):
+  - Alamofire (5.10.2)
+  - BRPickerView (2.9.7):
+    - BRPickerView/All (= 2.9.7)
+  - BRPickerView/All (2.9.7):
     - BRPickerView/Default
     - BRPickerView/Deprecated
-  - BRPickerView/Core (2.9.1)
-  - BRPickerView/DatePicker (2.9.1):
+  - BRPickerView/Core (2.9.7)
+  - BRPickerView/DatePicker (2.9.7):
     - BRPickerView/Core
-  - BRPickerView/Default (2.9.1):
+  - BRPickerView/Default (2.9.7):
     - BRPickerView/DatePicker
     - BRPickerView/TextPicker
-  - BRPickerView/Deprecated (2.9.1):
+  - BRPickerView/Deprecated (2.9.7):
     - BRPickerView/Core
-    - BRPickerView/Deprecated/AddressPickerView (= 2.9.1)
-    - BRPickerView/Deprecated/Base (= 2.9.1)
-    - BRPickerView/Deprecated/StringPickerView (= 2.9.1)
-  - BRPickerView/Deprecated/AddressPickerView (2.9.1):
-    - BRPickerView/Core
-    - BRPickerView/Deprecated/Base
-  - BRPickerView/Deprecated/Base (2.9.1):
-    - BRPickerView/Core
-  - BRPickerView/Deprecated/StringPickerView (2.9.1):
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.7)
+    - BRPickerView/Deprecated/Base (= 2.9.7)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.7)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.7):
     - BRPickerView/Core
     - BRPickerView/Deprecated/Base
-  - BRPickerView/TextPicker (2.9.1):
+  - BRPickerView/Deprecated/Base (2.9.7):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.7):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.7):
     - BRPickerView/Core
   - EmptyDataSet-Swift (5.0.0)
   - FDFullscreenPopGesture (1.1)
   - FSPagerView (0.8.3)
   - GrowingTextView (0.7.2)
-  - IQKeyboardManagerSwift (7.1.1)
+  - IQKeyboardCore (1.0.5)
+  - IQKeyboardManagerSwift (8.0.1):
+    - IQKeyboardManagerSwift/Appearance (= 8.0.1)
+    - IQKeyboardManagerSwift/Core (= 8.0.1)
+    - IQKeyboardManagerSwift/IQKeyboardReturnManager (= 8.0.1)
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 8.0.1)
+    - IQKeyboardManagerSwift/IQTextView (= 8.0.1)
+    - IQKeyboardManagerSwift/Resign (= 8.0.1)
+  - IQKeyboardManagerSwift/Appearance (8.0.1):
+    - IQKeyboardManagerSwift/Core
+  - IQKeyboardManagerSwift/Core (8.0.1):
+    - IQKeyboardNotification
+    - IQTextInputViewNotification
+  - IQKeyboardManagerSwift/IQKeyboardReturnManager (8.0.1):
+    - IQKeyboardReturnManager
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (8.0.1):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardToolbarManager
+  - IQKeyboardManagerSwift/IQTextView (8.0.1):
+    - IQTextView
+  - IQKeyboardManagerSwift/Resign (8.0.1):
+    - IQKeyboardManagerSwift/Core
+  - IQKeyboardNotification (1.0.3)
+  - IQKeyboardReturnManager (1.0.4):
+    - IQKeyboardCore (= 1.0.5)
+  - IQKeyboardToolbar (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Core (= 1.1.1)
+  - IQKeyboardToolbar/Core (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Placeholderable
+  - IQKeyboardToolbar/Placeholderable (1.1.1):
+    - IQKeyboardCore
+  - IQKeyboardToolbarManager (1.1.3):
+    - IQKeyboardToolbar
+    - IQTextInputViewNotification
+  - IQTextInputViewNotification (1.0.8):
+    - IQKeyboardCore
+  - IQTextView (1.0.5):
+    - IQKeyboardToolbar/Placeholderable
   - JXPagingView (2.1.3):
     - JXPagingView/Pager (= 2.1.3)
     - JXPagingView/Paging (= 2.1.3)
@@ -38,7 +77,7 @@ PODS:
   - JXPagingView/Paging (2.1.3)
   - JXPhotoBrowser (3.1.5)
   - JXSegmentedView (1.4.1)
-  - Kingfisher (7.12.0)
+  - Kingfisher (8.4.0)
   - MJRefresh (3.7.9)
   - SmartCodable (5.0.14):
     - SmartCodable/Core (= 5.0.14)
@@ -79,10 +118,11 @@ PODS:
     - SwiftMessages/App (= 10.0.1)
   - SwiftMessages/App (10.0.1)
   - SwiftyJSON (5.0.2)
+  - SwiftyUserDefaults (5.3.0)
   - Toast-Swift (5.1.1)
-  - ZLPhotoBrowser (4.5.4):
-    - ZLPhotoBrowser/Core (= 4.5.4)
-  - ZLPhotoBrowser/Core (4.5.4)
+  - ZLPhotoBrowser (4.6.0.1):
+    - ZLPhotoBrowser/Core (= 4.6.0.1)
+  - ZLPhotoBrowser/Core (4.6.0.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -102,53 +142,70 @@ DEPENDENCIES:
   - SwifterSwift
   - SwiftMessages
   - SwiftyJSON
+  - SwiftyUserDefaults
   - Toast-Swift
   - ZLPhotoBrowser
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - SwiftyUserDefaults
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
     - BRPickerView
-    - GrowingTextView
-    - IQKeyboardManagerSwift
-    - JXSegmentedView
-    - Kingfisher
-    - MJRefresh
-    - SnapKit
-    - SwiftyJSON
-    - Toast-Swift
-    - ZLPhotoBrowser
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - EmptyDataSet-Swift
     - FDFullscreenPopGesture
     - FSPagerView
+    - GrowingTextView
+    - IQKeyboardCore
+    - IQKeyboardManagerSwift
+    - IQKeyboardNotification
+    - IQKeyboardReturnManager
+    - IQKeyboardToolbar
+    - IQKeyboardToolbarManager
+    - IQTextInputViewNotification
+    - IQTextView
     - JXPagingView
     - JXPhotoBrowser
+    - JXSegmentedView
+    - Kingfisher
+    - MJRefresh
     - SmartCodable
+    - SnapKit
     - SwifterSwift
     - SwiftMessages
+    - SwiftyJSON
+    - Toast-Swift
+    - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
-  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
-  BRPickerView: 6dd69ea2c48e0a0abf1d197a705050e13143ee63
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
+  BRPickerView: 6548c8fbe21c0f29e72ab2fae177d196edc83f09
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
-  IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
+  IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
+  IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
+  IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
+  IQKeyboardReturnManager: 972be48528ce9e7508ab3ab15ac7efac803f17f5
+  IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
+  IQKeyboardToolbarManager: 6c693c8478d6327a7ef2107528d29698b3514dbb
+  IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
+  IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
   JXPagingView: afdd2e9af09c90160dd232b970d603cc6e7ddd0e
   JXPhotoBrowser: a6d745f5711bde79b02ba29165e2456ab5bde476
   JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
-  Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
+  Kingfisher: b14cc47bbfa7a3c150dd12962ee9c86338545629
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   SmartCodable: 384edba3cf436a430b35049962685b08ad3ed5cc
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwifterSwift: e9caf990fc72e835432280755d1f4c43f2a483d5
   SwiftMessages: 759b4a0bf5c3a116a0d7e8a34b098ba83c458625
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
-  ZLPhotoBrowser: 68ab8554845ce05a41d49f293a0e30beb519101f
+  ZLPhotoBrowser: 20f32e6429448cc1c008795a1b55472d5772939c
 
-PODFILE CHECKSUM: 161d68c800667a553f090fac70c69ce31ad2a1db
+PODFILE CHECKSUM: f2dc0a71254b279c3664d35b4376622911db716f
 
 COCOAPODS: 1.16.2
