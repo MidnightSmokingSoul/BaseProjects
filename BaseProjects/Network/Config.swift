@@ -36,11 +36,12 @@ final class AuthInterceptor: RequestInterceptor {
         let milliseconds = Int64(Date().timeIntervalSince1970 * 1000)
         let clientVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         let dictionary: Dictionary = ["clientVersion": clientVersion, "nonceStr": milliseconds, "timeStamp": milliseconds, "sysType": 2, "appKey": "2BIajKy4eT6tRU8Z", "sign": "4a058152bb4e0c47f31eaf4185c03c77", "token": token] as [String : Any]
-        if let jsonString = JSON(dictionary).rawString(.utf8, options: .prettyPrinted) {
-            request.headers.add(.authorization(bearerToken: jsonString))
+        if let jsonString = JSON(dictionary).rawString(.utf8) {
+            request.headers.add(.authorization(bearerToken: jsonString.removingNewLineCharacter))
         } else {
             print("字典转JSON失败: \(dictionary)")
         }
         completion(.success(request))
     }
+    
 }

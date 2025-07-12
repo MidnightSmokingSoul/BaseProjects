@@ -67,6 +67,7 @@ struct UserInfoModel: BaseModel, DefaultsSerializable {
 
     // 清除当前用户
     static func logout() {
+        current = nil
         Defaults[\.currentUser] = nil
     }
 }

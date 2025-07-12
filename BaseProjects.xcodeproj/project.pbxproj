@@ -15,6 +15,10 @@
 		04D001FC290BB9EE00F0D5A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D001FB290BB9EE00F0D5A3 /* Assets.xcassets */; };
 		04D001FF290BB9EE00F0D5A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D001FD290BB9EE00F0D5A3 /* LaunchScreen.storyboard */; };
 		5E62D7D97FE93C1B82EDC13E /* Pods_BaseProjects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E76D017F5B9F2991E1BCF849 /* Pods_BaseProjects.framework */; };
+		C9409E572E22501A0066AE71 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9409E552E22501A0066AE71 /* NetworkResponse.swift */; };
+		C9409E582E22501A0066AE71 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9409E522E22501A0066AE71 /* Config.swift */; };
+		C9409E592E22501A0066AE71 /* LoginTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9409E532E22501A0066AE71 /* LoginTool.swift */; };
+		C9409E5A2E22501A0066AE71 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9409E542E22501A0066AE71 /* Network.swift */; };
 		C97004BD2E21F9A400F71935 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97004BC2E21F9A400F71935 /* LoginViewController.swift */; };
 		C970A2802E2130550055EA18 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2772E2130550055EA18 /* BaseViewController.swift */; };
 		C970A2812E2130550055EA18 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2752E2130550055EA18 /* BaseNavigationController.swift */; };
@@ -23,9 +27,6 @@
 		C970A2842E2130550055EA18 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2792E2130550055EA18 /* BaseModel.swift */; };
 		C970A2852E2130550055EA18 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2762E2130550055EA18 /* BaseTabBarController.swift */; };
 		C970A2862E2130550055EA18 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A27A2E2130550055EA18 /* UserInfoModel.swift */; };
-		C970A2902E2130610055EA18 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2872E2130610055EA18 /* Config.swift */; };
-		C970A2912E2130610055EA18 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A28A2E2130610055EA18 /* Network.swift */; };
-		C970A2922E2130610055EA18 /* LoginTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2892E2130610055EA18 /* LoginTool.swift */; };
 		C970A2932E2130610055EA18 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A28E2E2130610055EA18 /* Utils.swift */; };
 		C970A2942E2130610055EA18 /* JCyclePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A2882E2130610055EA18 /* JCyclePictureView.swift */; };
 		C970A2952E2130610055EA18 /* UserDefaultsDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970A28D2E2130610055EA18 /* UserDefaultsDataBase.swift */; };
@@ -56,6 +57,10 @@
 		04D00200290BB9EE00F0D5A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D811E0220505F20A35197C5 /* Pods-BaseProjects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseProjects.release.xcconfig"; path = "Target Support Files/Pods-BaseProjects/Pods-BaseProjects.release.xcconfig"; sourceTree = "<group>"; };
 		BABBC8BD4E7F5D008FB3ABC0 /* Pods-BaseProjects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseProjects.debug.xcconfig"; path = "Target Support Files/Pods-BaseProjects/Pods-BaseProjects.debug.xcconfig"; sourceTree = "<group>"; };
+		C9409E522E22501A0066AE71 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C9409E532E22501A0066AE71 /* LoginTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTool.swift; sourceTree = "<group>"; };
+		C9409E542E22501A0066AE71 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		C9409E552E22501A0066AE71 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		C97004BC2E21F9A400F71935 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C970A2752E2130550055EA18 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		C970A2762E2130550055EA18 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
@@ -64,10 +69,7 @@
 		C970A27A2E2130550055EA18 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		C970A27C2E2130550055EA18 /* XHEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHEmptyStateView.swift; sourceTree = "<group>"; };
 		C970A27D2E2130550055EA18 /* XHTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHTagView.swift; sourceTree = "<group>"; };
-		C970A2872E2130610055EA18 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C970A2882E2130610055EA18 /* JCyclePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCyclePictureView.swift; sourceTree = "<group>"; };
-		C970A2892E2130610055EA18 /* LoginTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTool.swift; sourceTree = "<group>"; };
-		C970A28A2E2130610055EA18 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		C970A28B2E2130610055EA18 /* Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refresh.swift; sourceTree = "<group>"; };
 		C970A28C2E2130610055EA18 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C970A28D2E2130610055EA18 /* UserDefaultsDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataBase.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				042606AC2941DA5C009FA987 /* DemoViewController.swift */,
 				C97004BC2E21F9A400F71935 /* LoginViewController.swift */,
 				C970A28F2E2130610055EA18 /* Common */,
+				C9409E562E22501A0066AE71 /* Network */,
 				C970A2A32E2130690055EA18 /* Extension */,
 				04D001F2290BB9EC00F0D5A3 /* AppDelegate.swift */,
 				04D001F4290BB9EC00F0D5A3 /* SceneDelegate.swift */,
@@ -150,6 +153,17 @@
 				0D811E0220505F20A35197C5 /* Pods-BaseProjects.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C9409E562E22501A0066AE71 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C9409E522E22501A0066AE71 /* Config.swift */,
+				C9409E532E22501A0066AE71 /* LoginTool.swift */,
+				C9409E542E22501A0066AE71 /* Network.swift */,
+				C9409E552E22501A0066AE71 /* NetworkResponse.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		C970A2782E2130550055EA18 /* Controller */ = {
@@ -193,10 +207,7 @@
 		C970A28F2E2130610055EA18 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C970A2872E2130610055EA18 /* Config.swift */,
 				C970A2882E2130610055EA18 /* JCyclePictureView.swift */,
-				C970A2892E2130610055EA18 /* LoginTool.swift */,
-				C970A28A2E2130610055EA18 /* Network.swift */,
 				C970A28B2E2130610055EA18 /* Refresh.swift */,
 				C970A28C2E2130610055EA18 /* Toast.swift */,
 				C970A28D2E2130610055EA18 /* UserDefaultsDataBase.swift */,
@@ -342,9 +353,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C970A2902E2130610055EA18 /* Config.swift in Sources */,
-				C970A2912E2130610055EA18 /* Network.swift in Sources */,
-				C970A2922E2130610055EA18 /* LoginTool.swift in Sources */,
 				C970A2932E2130610055EA18 /* Utils.swift in Sources */,
 				C970A2942E2130610055EA18 /* JCyclePictureView.swift in Sources */,
 				C970A2952E2130610055EA18 /* UserDefaultsDataBase.swift in Sources */,
@@ -355,6 +363,10 @@
 				C970A2A42E2130690055EA18 /* Date+Extension.swift in Sources */,
 				C970A2A52E2130690055EA18 /* UIWindow+Extension.swift in Sources */,
 				C970A2A62E2130690055EA18 /* UIDevice+Extension.swift in Sources */,
+				C9409E572E22501A0066AE71 /* NetworkResponse.swift in Sources */,
+				C9409E582E22501A0066AE71 /* Config.swift in Sources */,
+				C9409E592E22501A0066AE71 /* LoginTool.swift in Sources */,
+				C9409E5A2E22501A0066AE71 /* Network.swift in Sources */,
 				C97004BD2E21F9A400F71935 /* LoginViewController.swift in Sources */,
 				C970A2A72E2130690055EA18 /* UIColor+Extension.swift in Sources */,
 				C970A2A82E2130690055EA18 /* UIButton+Extension.swift in Sources */,

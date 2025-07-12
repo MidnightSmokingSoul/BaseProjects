@@ -25,6 +25,7 @@ public class Reachability {
 }
 
 public enum Router: String {
+    case getCode = "api/user/v1/sendVerificationCode"
     case login = "api/user/v1/appLogin"
     case getUserinfo = "api/user/v1/queryAccount"
 }
@@ -39,8 +40,8 @@ class Network {
     class func doRequest(
         rootApi: String = rootApi,
         router: Router,
-        method: HTTPMethod = .get,
         parameters: [String: Any]?,
+        method: HTTPMethod = .post,
         success: @escaping (JSON?) -> (),
         failure: @escaping (Error) -> ()
     ) {
@@ -56,35 +57,24 @@ class Network {
             method: method,
             parameters: parameters,
             encoding: method == .get ? URLEncoding.default : JSONEncoding.default
-            // **不用传headers，拦截器自动加**
         )
-        
         Toast.showToast()
-        
-        request.responseData { response in
+        request.validate().responseData { response in
             Toast.hideAllToasts()
-            do {
-                guard let data = response.data else {
-                    Toast.makeToast(message: "请求失败")
-                    failure(PromiseError.Error(message: "请求失败"))
-                    return
+            switch response.result {
+            case .success(let data):
+                // 直接拿模型用
+                switch NetworkResponse.parse(from: JSON(data)) {
+                case .success(let dataJson):
+                    // 正常处理 dataJson
+                    success(dataJson)
+                case .failure(let error):
+                    Toast.makeToast(message: error.message)
                 }
-                if let code = response.response?.statusCode, code == 200 {
-                    let json = JSON(data)
-                    if json["result"].intValue == 0 {
-                        Toast.makeToast(message: json["msg"].stringValue)
-                        failure(PromiseError.Error(message: json["msg"].stringValue, result: 0))
-                    } else {
-                        success(json["data"])
-                    }
-                } else {
-                    let errorJson = try JSON(data: data)
-                    Toast.makeToast(message: errorJson["message"].stringValue)
-                    failure(PromiseError.Error(message: errorJson["message"].stringValue))
-                }
-            } catch {
-                Toast.makeToast(message: "请求失败")
-                failure(PromiseError.Error(message: "请求失败"))
+            case .failure(let error):
+                // 错误处理
+                Toast.makeToast(message: error.errorDescription ?? "")
+                break
             }
         }
     }

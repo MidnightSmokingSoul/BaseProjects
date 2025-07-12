@@ -35,6 +35,10 @@ extension String {
 // MARK: - String+Trim.swift
 extension String {
     
+    // MARK: 把传入的string换成replacement
+    func replace(string: String, replacement: String) -> String {
+        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
+    }
     /// 去掉首尾空格
     var trimmingWhitespace: String {
         trimmingCharacters(in: .whitespaces)
@@ -49,12 +53,16 @@ extension String {
     var removingAllSpaces: String {
         replacingOccurrences(of: " ", with: "")
     }
+    
+    /// 去掉换行符
+    var removingNewLineCharacter: String {
+        replacingOccurrences(of: "\n", with: "")
+    }
 }
 
 
 // MARK: - String+Regex.swift
 extension String {
-    
     // MARK:  字符URL格式化,中文路径encoding
     var urlEncoding: String {
         let url = self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
