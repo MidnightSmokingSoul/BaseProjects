@@ -27,12 +27,12 @@ public func delay(_ delay:Double, closure:@escaping ()->()) {
     DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
 }
 
-struct APP {
+struct App {
     
     // MARK: - 当前控制器获取
 
     /// 获取当前最顶层控制器
-    static var current: UIViewController {
+    static var currentVC: UIViewController {
         let scene = UIApplication.shared.connectedScenes.first
         let root = (scene as? UIWindowScene)?.windows.first(where: { $0.isKeyWindow })?.rootViewController
         return findBest(vc: root ?? UIViewController())

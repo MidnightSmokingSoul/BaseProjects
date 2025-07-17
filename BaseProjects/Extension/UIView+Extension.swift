@@ -72,19 +72,27 @@ extension UIView {
     /// - Parameters:
     ///   - corners: [.topLeft, .topRight] 这样的组合
     ///   - radius: 圆角半径
-    func addCorner(corners: UIRectCorner, radius: CGFloat) {
-        layoutIfNeeded()
-        let maskPath = UIBezierPath(
-            roundedRect: bounds,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = bounds
-        maskLayer.path = maskPath.cgPath
-        layer.mask = maskLayer
+    func setCorner(corners: UIRectCorner = .allCorners, radius: CGFloat, masksToBounds: Bool = false) {
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = masksToBounds
+        
+        if #available(iOS 11.0, *) {
+            var masked: CACornerMask = []
+            if corners.contains(.topLeft)     { masked.insert(.layerMinXMinYCorner) }
+            if corners.contains(.topRight)    { masked.insert(.layerMaxXMinYCorner) }
+            if corners.contains(.bottomLeft)  { masked.insert(.layerMinXMaxYCorner) }
+            if corners.contains(.bottomRight) { masked.insert(.layerMaxXMaxYCorner) }
+            self.layer.maskedCorners = masked
+        }
     }
-    
+    /// 加边框
+    /// - Parameters:
+    ///   - width: 边框宽度
+    ///   - colorHex: 边框颜色
+    func setBorder(width: CGFloat = 1, colorHex: String) {
+        self.layer.borderWidth = width
+        self.layer.borderColor = UIColor(colorHex).cgColor
+    }
     /// 添加渐变背景色
     /// - Parameters:
     ///   - rellay: 可传入已有的 CAGradientLayer，若为 nil 自动创建

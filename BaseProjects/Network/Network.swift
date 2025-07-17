@@ -11,7 +11,7 @@ import SwiftyJSON
 import Toast_Swift
 
 public enum PromiseError: Error {
-    case Error(message: String, result: Int = 0)
+    case error(message: String, result: Int = 0)
 }
 
 enum UploadType {
@@ -24,10 +24,25 @@ public class Reachability {
     }
 }
 
+typealias ProgressHandler = (_ progress: Double) -> Void
+typealias JSONSuccessHandler = (_ json: JSON?) -> Void
+typealias FailureHandler = (_ error: Error) -> Void
+
 public enum Router: String {
     case getCode = "api/user/v1/sendVerificationCode"
     case login = "api/user/v1/appLogin"
-    case getUserinfo = "api/user/v1/queryAccount"
+    case getUserInfo = "api/user/v1/queryAccount"
+    case getConfig = "api/resource/config/list"
+    case getNoticeCount = "api/resource/notice/noticeNoViewCount"
+    case getNoticeList = "api/resource/notice/list"
+    case getNoticeDetails = "api/resource/notice/noticeInfo"
+    case getQueryNewVersion = "api/resource/app/version/queryNewVersion"
+    case getNewNotice = "api/resource/notice/newNotice"
+    case getOrderList = "api/user/order/list"
+    case logout = "api/user/v1/logout"
+    case cancelAccount = "api/user/v1/cancel"
+    case changeUserInfo = "api/user/v1/saveUserInfo"
+    case uploadImage = "resource/file/upload"
 }
 
 class Network {
@@ -42,13 +57,13 @@ class Network {
         router: Router,
         parameters: [String: Any]?,
         method: HTTPMethod = .post,
-        success: @escaping (JSON?) -> (),
-        failure: @escaping (Error) -> ()
+        isShowToast: Bool = true,
+        success: @escaping JSONSuccessHandler,
+        failure: @escaping FailureHandler = { _ in }
     ) {
         guard Reachability.isConnectedToNetwork() else {
             Toast.hideAllToasts()
             Toast.makeToast(message: "请检测网络连接")
-            failure(PromiseError.Error(message: "请检测网络连接"))
             return
         }
         
@@ -58,7 +73,9 @@ class Network {
             parameters: parameters,
             encoding: method == .get ? URLEncoding.default : JSONEncoding.default
         )
-        Toast.showToast()
+        if isShowToast {
+            Toast.showToast()
+        }
         request.validate().responseData { response in
             Toast.hideAllToasts()
             switch response.result {
@@ -70,10 +87,12 @@ class Network {
                     success(dataJson)
                 case .failure(let error):
                     Toast.makeToast(message: error.message)
+                    failure(PromiseError.error(message: error.message))
                 }
             case .failure(let error):
                 // 错误处理
                 Toast.makeToast(message: error.errorDescription ?? "")
+                failure(PromiseError.error(message: error.errorDescription ?? "", result: error.responseCode ?? 0))
                 break
             }
         }
@@ -86,31 +105,39 @@ class Network {
         method: HTTPMethod = .post,
         parameters: [String: Any]? = nil,
         file: Data,
-        file_name: String = "avatar",
+        fileName: String = "avatar",
         uploadType: UploadType = .image,
-        progressCall: @escaping (Double) -> (),
-        success: @escaping (JSON?) -> (),
-        failure: @escaping (Error) -> ()
+        progressCall: @escaping ProgressHandler,
+        success: @escaping JSONSuccessHandler,
+        failure: @escaping FailureHandler = { _ in }
     ) {
         let headers: HTTPHeaders = ["Content-Type": "multipart/form-data"]
         let request = Config.sharedManager.requestManager.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append(file, withName: "file", fileName: "\(file_name)\(Date().timeIntervalSince1970).jpg", mimeType: "image/jpg")
+                multipartFormData.append(file, withName: "file", fileName: "\(fileName)\(Date().timeIntervalSince1970).jpg", mimeType: "image/jpg")
             },
             to: rootApi + router.rawValue,
             method: method,
             headers: headers // 这里传 Content-Type，Authorization 会被拦截器自动添加
         )
-        
-        request.uploadProgress { progress in
+        Toast.showToast()
+        request.validate().uploadProgress { progress in
             progressCall(progress.fractionCompleted)
         }.responseData { response in
+            Toast.hideAllToasts()
             switch response.result {
-            case .success(_):
-                success(try? JSON(data: response.data ?? Data()))
-            case .failure(_):
-                Toast.makeToast(message: "上传失败", position: .center)
-                failure(PromiseError.Error(message: "上传失败"))
+            case .success(let data):
+                switch NetworkResponse.parse(from: JSON(data)) {
+                case .success(let dataJson):
+                    // 正常处理 dataJson
+                    success(dataJson)
+                case .failure(let error):
+                    Toast.makeToast(message: error.message)
+                    failure(PromiseError.error(message: error.message))
+                }
+            case .failure(let error):
+                Toast.makeToast(message: error.errorDescription ?? "")
+                failure(PromiseError.error(message: error.errorDescription ?? "", result: error.responseCode ?? 0))
             }
         }
     }
@@ -123,9 +150,9 @@ class Network {
         parameters: [String: Any]? = nil,
         images: [Data],
         fileNamePrefix: String = "avatar",
-        progressCall: @escaping (Double) -> (),
-        success: @escaping (JSON?) -> (),
-        failure: @escaping (Error) -> ()
+        progressCall: @escaping ProgressHandler,
+        success: @escaping JSONSuccessHandler,
+        failure: @escaping FailureHandler = { _ in }
     ) {
         let headers: HTTPHeaders = ["Content-Type": "multipart/form-data"]
         
@@ -135,27 +162,29 @@ class Network {
                     let fileName = "\(fileNamePrefix)\(Date().timeIntervalSince1970)_\(index).jpg"
                     multipartFormData.append(data, withName: "fileList", fileName: fileName, mimeType: "image/jpg")
                 }
-                // 如果有其他参数，可以添加：
-                // parameters?.forEach { key, value in
-                //    if let str = value as? String, let d = str.data(using: .utf8) {
-                //        multipartFormData.append(d, withName: key)
-                //    }
-                // }
             },
             to: rootApi + router.rawValue,
             method: method,
             headers: headers // 只传 Content-Type，拦截器自动加 token 等
         )
-        
-        request.uploadProgress { progress in
+        Toast.showToast()
+        request.validate().uploadProgress { progress in
             progressCall(progress.fractionCompleted)
         }.responseData { response in
+            Toast.hideAllToasts()
             switch response.result {
-            case .success(_):
-                success(try? JSON(data: response.data ?? Data()))
-            case .failure(_):
-                Toast.makeToast(message: "上传失败", position: .center)
-                failure(PromiseError.Error(message: "上传失败"))
+            case .success(let data):
+                switch NetworkResponse.parse(from: JSON(data)) {
+                case .success(let dataJson):
+                    // 正常处理 dataJson
+                    success(dataJson)
+                case .failure(let error):
+                    Toast.makeToast(message: error.message)
+                    failure(PromiseError.error(message: error.message))
+                }
+            case .failure(let error):
+                Toast.makeToast(message: error.errorDescription ?? "")
+                failure(PromiseError.error(message: error.errorDescription ?? "", result: error.responseCode ?? 0))
             }
         }
     }

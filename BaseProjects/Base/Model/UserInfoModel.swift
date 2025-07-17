@@ -8,11 +8,24 @@
 import SmartCodable
 import SwiftyUserDefaults
 
-// 你的用户模型，继承 BaseModel，遵守 DefaultsSerializable
+// 用户模型，继承 BaseModel，遵守 DefaultsSerializable
 struct UserInfoModel: BaseModel, DefaultsSerializable {
     
     var token: String?
-    var name: String?
+    var language: String?
+    var openId: String?
+    var nickName: String?
+    var city: String?
+    var country: String?
+    var inviteCode: String?
+    var unionId: String?
+    var sex: Int = 0
+    var avatarUrl: String?
+    var userId: Int = 0
+    var codeId: Int = 0
+    var wxNum: String?
+    var province: String?
+    var phone: String?
     
     // 当前登录用户
     static var current: UserInfoModel? {

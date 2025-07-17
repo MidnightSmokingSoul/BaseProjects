@@ -12,7 +12,7 @@ import UIKit
 extension UIViewController {
     
     // MARK: - Storyboard 初始化
-
+    
     /// 从指定 Storyboard 根据类名初始化控制器（Storyboard ID 必须与类名一致）
     class func initByName(storyboardName: String) -> Self {
         return instantiateFromStoryboardHelper(storyboardName: storyboardName, storyboardId: nameOfClass)
@@ -31,8 +31,29 @@ extension UIViewController {
         NSStringFromClass(self).components(separatedBy: ".").last!
     }
     
+    // MARK: - 导航栏样式
+    
+    ///导航栏透明
+    func setTransparentNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    ///导航栏不透明
+    func setOpaqueNavigationBar(backgroundColor: UIColor = .white, titleColor: UIColor = .black) {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = backgroundColor
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
     // MARK: - UI 尺寸辅助
-
+    
     /// 导航栏高度
     var navigationBarHeight: CGFloat {
         navigationController?.navigationBar.frame.height ?? 0
