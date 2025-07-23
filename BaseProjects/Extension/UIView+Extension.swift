@@ -29,44 +29,44 @@ extension UIView {
     }
     
     /// 使用 SwiftMessages 显示当前视图为弹窗
-        ///
-        /// - Parameters:
-        ///   - presentationStyle: 弹窗显示的位置（默认居中 `.center`，也可选 `.top`、`.bottom`）
-        ///   - alpha: 背景遮罩的透明度（0~1，默认 0.5）
-        ///   - interactiveHide: 是否允许点击遮罩关闭弹窗（默认 false）
-        func show(presentationStyle: SwiftMessages.PresentationStyle = .center,
-                  alpha: Double = 0.5,
-                  interactiveHide: Bool = false) {
-
-            // 初始化默认配置
-            var config = SwiftMessages.defaultConfig
-
-            // 设置弹窗上下文为 window 级别，放在状态栏窗口层级上
-            config.presentationContext = .window(windowLevel: UIWindow.Level.statusBar)
-
-            // 设置展示时长为永久（需要手动关闭）
-            config.duration = .forever
-
-            // 是否允许用户手势关闭（如点击、滑动）
-            config.interactiveHide = interactiveHide
-
-            // 设置弹窗的展示位置样式（如顶部、底部、居中）
-            config.presentationStyle = presentationStyle
-
-            // 设置弹窗背景遮罩颜色及交互关闭
-            config.dimMode = .color(
-                color: .black.withAlphaComponent(alpha),    // 半透明黑色遮罩
-                interactive: interactiveHide                // 是否允许点遮罩关闭
-            )
-
-            // 展示当前视图（self）作为 SwiftMessages 弹窗内容
-            SwiftMessages.show(config: config, view: self)
-        }
-
-        /// 关闭当前正在展示的 SwiftMessages 弹窗
-        func hide() {
-            SwiftMessages.hide()
-        }
+    ///
+    /// - Parameters:
+    ///   - presentationStyle: 弹窗显示的位置（默认居中 `.center`，也可选 `.top`、`.bottom`）
+    ///   - alpha: 背景遮罩的透明度（0~1，默认 0.5）
+    ///   - interactiveHide: 是否允许点击遮罩关闭弹窗（默认 false）
+    func show(presentationStyle: SwiftMessages.PresentationStyle = .center,
+              alpha: Double = 0.5,
+              interactiveHide: Bool = false) {
+        
+        // 初始化默认配置
+        var config = SwiftMessages.defaultConfig
+        
+        // 设置弹窗上下文为 window 级别，放在状态栏窗口层级上
+        config.presentationContext = .window(windowLevel: UIWindow.Level.statusBar)
+        
+        // 设置展示时长为永久（需要手动关闭）
+        config.duration = .forever
+        
+        // 是否允许用户手势关闭（如点击、滑动）
+        config.interactiveHide = interactiveHide
+        
+        // 设置弹窗的展示位置样式（如顶部、底部、居中）
+        config.presentationStyle = presentationStyle
+        
+        // 设置弹窗背景遮罩颜色及交互关闭
+        config.dimMode = .color(
+            color: .black.withAlphaComponent(alpha),    // 半透明黑色遮罩
+            interactive: interactiveHide                // 是否允许点遮罩关闭
+        )
+        
+        // 展示当前视图（self）作为 SwiftMessages 弹窗内容
+        SwiftMessages.show(config: config, view: self)
+    }
+    
+    /// 关闭当前正在展示的 SwiftMessages 弹窗
+    func hide() {
+        SwiftMessages.hide()
+    }
     
     /// 给指定角切圆角
     /// - Parameters:

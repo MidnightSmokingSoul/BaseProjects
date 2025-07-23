@@ -14,6 +14,12 @@ extension BinaryInteger {
         let doubleValue = Double(self)
         return doubleValue.abbreviatedString()
     }
+    
+    /// 金额转换
+    func toDecimalString(divideBy divider: Double = 100) -> String {
+        let value = Double(self) / divider
+        return String(format: "%.2f", value)
+    }
 }
 
 extension Double {
